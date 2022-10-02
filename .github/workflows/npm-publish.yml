@@ -1,0 +1,46 @@
+# This workflow will run tests using node and then publish a package to npmjs when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: NPM Publish
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  #  build:
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - uses: actions/checkout@v2
+  #      - uses: actions/setup-node@v2
+  #        with:
+  #          node-version: 16
+  #      - run: yarn install
+  #      - run: npm test
+  #        env:
+  #          AMQP_URL: ${{secrets.AMQP_URL}}
+
+  publish-gpr:
+    #    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@irohalab'
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+      - name: Install Dependencies
+        run: yarn install
+      - name: Build library
+        run: ng build --project @irohalab/Deneb-UI
+      - name: Publish npm package
+        run: yarn publish dist/irohalab/deneb-ui
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
