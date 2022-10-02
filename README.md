@@ -1,4 +1,19 @@
-# DenebUI
+A UI Building Blocks for Project mira-ui.
+
+Forked from lordfriend/Deneb-UI. This project only support Angular 13 and above, for before Angular Ivy version, got to the lordfriend/Deneb-UI
+
+Current implemented component:
+
+- Dialog (modal)
+- Toast
+- Pagination
+- InfiniteList
+- TimelineMeter
+- Dropdown (directive)
+- Toggle
+- Popover (service and directive), need Popper.js as dependency.
+
+Notice: When you want to use toast, you must import `BrowserAnimationsModule` in your application module.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 

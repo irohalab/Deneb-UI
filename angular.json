@@ -3,5 +3,140 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "@irohalab/Deneb-UI": {
+      "projectType": "library",
+      "root": "projects/irohalab/deneb-ui",
+      "sourceRoot": "projects/irohalab/deneb-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/irohalab/deneb-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/irohalab/deneb-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/irohalab/deneb-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/irohalab/deneb-ui/src/test.ts",
+            "tsConfig": "projects/irohalab/deneb-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/irohalab/deneb-ui/karma.conf.js"
+          }
+        }
+      }
+    },
+    "Deneb-UI-Demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "root": "projects/deneb-ui-demo",
+      "sourceRoot": "projects/deneb-ui-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/deneb-ui-demo",
+            "index": "projects/deneb-ui-demo/src/index.html",
+            "main": "projects/deneb-ui-demo/src/main.ts",
+            "polyfills": "projects/deneb-ui-demo/src/polyfills.ts",
+            "tsConfig": "projects/deneb-ui-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "less",
+            "assets": [
+              "projects/deneb-ui-demo/src/favicon.ico",
+              "projects/deneb-ui-demo/src/assets"
+            ],
+            "styles": [
+              "projects/deneb-ui-demo/src/styles.less",
+              "node_modules/@irohalab/semantic-ui/semantic.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/deneb-ui-demo/src/environments/environment.ts",
+                  "with": "projects/deneb-ui-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "Deneb-UI-Demo:build:production"
+            },
+            "development": {
+              "browserTarget": "Deneb-UI-Demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "Deneb-UI-Demo:build:development"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/deneb-ui-demo/src/test.ts",
+            "polyfills": "projects/deneb-ui-demo/src/polyfills.ts",
+            "tsConfig": "projects/deneb-ui-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/deneb-ui-demo/karma.conf.js",
+            "inlineStyleLanguage": "less",
+            "assets": [
+              "projects/deneb-ui-demo/src/favicon.ico",
+              "projects/deneb-ui-demo/src/assets"
+            ],
+            "styles": [
+              "projects/deneb-ui-demo/src/styles.less"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "6fd15144-0a91-4178-a79d-af451ba3fad1"
   }
 }
