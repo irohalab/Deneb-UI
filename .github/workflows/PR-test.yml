@@ -1,0 +1,29 @@
+name: Unit Test for PR
+
+on:
+  pull_request_target:
+    branches: [ master ]
+    types: [labeled]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'Ready To Test')
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+      - name: Install dependencies
+        run: yarn install
+      - name: Run Unit test
+        run: |
+          ng test --project @irohalab/Deneb-UI --no-watch

@@ -1,24 +1,11 @@
 # DenebUI
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.0.
+This library is a fork from [Deneb-UI](https://github.com/lordfriend/Deneb-UI) with Angular 14 support
 
-## Code scaffolding
+## Install
 
-Run `ng generate component component-name --project Deneb-UI` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project Deneb-UI`.
-> Note: Don't forget to add `--project Deneb-UI` or else it will be added to the default project in your `angular.json` file. 
+`npm i --save @irohalab/Deneb-UI`
 
-## Build
+## Usage
 
-Run `ng build Deneb-UI` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build Deneb-UI`, go to the dist folder `cd dist/deneb-ui` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test Deneb-UI` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Please take a look at the [deneb-ui-demo](https://github.com/irohalab/Deneb-UI/tree/master/projects/deneb-ui-demo) application
