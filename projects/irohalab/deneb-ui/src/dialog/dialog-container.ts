@@ -3,7 +3,7 @@ import {
     Component,
     ComponentRef,
     EventEmitter, Injector,
-    Input,
+    Input, OnDestroy, OnInit,
     Output, Type,
     ViewChild,
     ViewContainerRef,
@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {UIDialogConfig} from './dialog';
+import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'ui-dialog-container',
@@ -31,7 +33,8 @@ import {UIDialogConfig} from './dialog';
         ])
     ]
 })
-export class UIDialogContainer implements AfterViewInit {
+export class UIDialogContainer implements AfterViewInit, OnInit, OnDestroy {
+    private _subscription = new Subscription();
 
     get backdropOpacity(): number {
         if (this.dialogConfig && !this.dialogConfig.backdrop) {
@@ -48,6 +51,7 @@ export class UIDialogContainer implements AfterViewInit {
     }
 
     insideParent: boolean;
+    isDarkTheme: boolean;
 
     @ViewChild('backdrop', {read: ViewContainerRef}) backDropContainerRef: ViewContainerRef;
 
@@ -59,7 +63,19 @@ export class UIDialogContainer implements AfterViewInit {
 
     contentViewRef: ViewRef;
 
-    constructor(private _viewContainerRef: ViewContainerRef) {
+    constructor(private _viewContainerRef: ViewContainerRef,
+                private _darkThemeService: DarkThemeService) {
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => { this.isDarkTheme = theme == DARK_THEME; })
+        );
     }
 
     onClickBackDrop($event: Event) {

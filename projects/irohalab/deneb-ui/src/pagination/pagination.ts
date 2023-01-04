@@ -1,4 +1,6 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
+import { Subscription } from 'rxjs';
 
 
 export interface PageNumber {
@@ -10,7 +12,7 @@ export interface PageNumber {
 @Component({
     selector: 'ui-pagination',
     template: `
-        <div class="ui pagination menu">
+        <div class="ui pagination menu" [ngClass]="{inverted: isDarkTheme}">
             <a class="item page-navigator" [ngClass]="{disabled: currentPage <= 1}" (click)="prevPage()">
                 <i class="angle left icon"></i>
             </a>
@@ -24,8 +26,8 @@ export interface PageNumber {
         </div>
     `
 })
-export class UIPagination {
-
+export class UIPagination implements OnInit, OnDestroy {
+    private _subscription = new Subscription();
     _currentPageNumber: number;
     private _total: number;
     private _countPerPage: number;
@@ -33,6 +35,7 @@ export class UIPagination {
 
     pageNumberList: PageNumber[] = [];
     totalPages: number;
+    isDarkTheme: boolean;
 
     @Output()
     pageChange = new EventEmitter<number>();
@@ -70,6 +73,20 @@ export class UIPagination {
         }
         this._max = max;
         this.pageNumberList = this.updatePageNumberList();
+    }
+
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => { this.isDarkTheme = theme === DARK_THEME; })
+        );
     }
 
     onClickPage(page: PageNumber) {

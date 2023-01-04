@@ -1,14 +1,16 @@
 import {
     Component,
-    EventEmitter,
+    EventEmitter, HostBinding,
     Input,
-    OnDestroy,
+    OnDestroy, OnInit,
     Output,
     ViewEncapsulation
 } from '@angular/core';
 import {animate, state, style, transition, trigger, AnimationEvent} from '@angular/animations';
 import {UIToastRef} from './toast-ref';
 import {UIToastAnimation} from './toast-interface';
+import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'ui-toast',
@@ -32,16 +34,28 @@ import {UIToastAnimation} from './toast-interface';
     styleUrls: ['toast.less'],
     encapsulation: ViewEncapsulation.Emulated
 })
-export class UIToastComponent implements OnDestroy, UIToastAnimation {
+export class UIToastComponent implements OnInit, OnDestroy, UIToastAnimation {
+    private _subscription = new Subscription();
     @Input() message: string;
 
     @Output()
     animationEvent = new EventEmitter<any>();
 
-    constructor(private _toastRef: UIToastRef<UIToastComponent>) {}
+    @HostBinding('class.dark-theme')
+    isDarkTheme: boolean;
+
+    constructor(private _toastRef: UIToastRef<UIToastComponent>,
+                private _darkThemeService: DarkThemeService) {}
+
+    public ngOnInit() {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe((theme) => { this.isDarkTheme = theme === DARK_THEME; })
+        );
+    }
 
     ngOnDestroy(): void {
-        // console.log('destroyed');
+        this._subscription.unsubscribe();
     }
 
     uiLeaveAnimationDone(event: AnimationEvent): void {

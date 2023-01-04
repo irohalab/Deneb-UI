@@ -6,6 +6,6 @@
        class="hidden"
        tabindex="0"
        (change)="onInputChange()">
-<label [ngClass]="{ready: ready, disabled: isDisabled}" [for]="inputId">
+<label [ngClass]="{ready: ready, disabled: isDisabled, inverted: isDarkTheme}" [for]="inputId">
     {{text}}
 </label>

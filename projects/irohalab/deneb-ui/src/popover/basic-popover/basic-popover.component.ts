@@ -2,10 +2,11 @@
 import {fromEvent as observableFromEvent,  Subscription ,  Observable } from 'rxjs';
 
 import {skip} from 'rxjs/operators';
-import { AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { Popover } from '../register';
 import { UIPopoverRef } from '../popover-ref';
 import { UIPopoverContent } from '../popover-content';
+import { DARK_THEME, DarkThemeService } from '../../dark-theme.service';
 
 @Popover('ui-basic')
 @Component({
@@ -13,7 +14,7 @@ import { UIPopoverContent } from '../popover-content';
     templateUrl: './basic-popover.html',
     styleUrls: ['./basic-popover.less']
 })
-export class BasicPopoverComponent extends UIPopoverContent implements AfterViewInit, OnDestroy {
+export class BasicPopoverComponent extends UIPopoverContent implements AfterViewInit, OnInit, OnDestroy {
     private _subscription = new Subscription();
 
     @Input()
@@ -33,7 +34,10 @@ export class BasicPopoverComponent extends UIPopoverContent implements AfterView
 
     placement: string;
 
-    constructor(popoverRef: UIPopoverRef<BasicPopoverComponent>) {
+    @HostBinding('class.inverted')
+    isDarkTheme: boolean = false;
+
+    constructor(popoverRef: UIPopoverRef<BasicPopoverComponent>, private _darkThemeService: DarkThemeService) {
         super(popoverRef);
         this.placement = this.popoverRef.placement;
         switch (this.placement) {
@@ -54,6 +58,13 @@ export class BasicPopoverComponent extends UIPopoverContent implements AfterView
             default:
                 // otherwise this is fine.
         }
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => {this.isDarkTheme = theme === DARK_THEME})
+        );
     }
 
     @HostListener('click', ['$event'])

@@ -1,6 +1,7 @@
 import {
     Component
 } from '@angular/core';
+import { DARK_THEME, DarkThemeService, LIGHT_THEME } from '../../../irohalab/deneb-ui/src/dark-theme.service';
 
 // require('semantic-ui-less/definitions/modules/sidebar.less');
 
@@ -16,8 +17,22 @@ import {
             bottom: 0;
             overflow-x: hidden;
             overflow-y: auto;
+            &.dark-theme {
+                background-color: black;
+            }
         }
     `]
 })
 export class App {
+    private _darkTheme: boolean;
+    get darkTheme(): boolean {
+        return this._darkTheme;
+    }
+    set darkTheme (v: boolean) {
+        this._darkTheme = v;
+        this._darkThemeService.changeTheme(v ? DARK_THEME : LIGHT_THEME);
+    }
+    constructor(private _darkThemeService: DarkThemeService) {
+        this._darkTheme = this._darkThemeService.getCurrentTheme() === DARK_THEME;
+    }
 }

@@ -1,5 +1,7 @@
-import { Component, Input, ExistingProvider, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ExistingProvider, forwardRef, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 
 let nextId = 0;
 
@@ -23,8 +25,8 @@ export const UI_TOGGLE_VALUE_ACCESSOR: ExistingProvider = {
     styleUrls: ['./toggle.less'],
     providers: [UI_TOGGLE_VALUE_ACCESSOR]
 })
-export class UIToggle implements ControlValueAccessor {
-
+export class UIToggle implements ControlValueAccessor, OnInit, OnDestroy {
+    private _subscription = new Subscription();
     ready = false;
     isDisabled: boolean;
     checked: boolean;
@@ -39,7 +41,23 @@ export class UIToggle implements ControlValueAccessor {
     @Output()
     readonly change = new EventEmitter<UIToggleChange>();
 
+    isDarkTheme: boolean;
+
     private _onChangeHandler = (_: any) => {};
+
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe((theme) => { this.isDarkTheme = theme === DARK_THEME})
+        );
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
 
     toggle(): void {
         this.checked = !this.checked;

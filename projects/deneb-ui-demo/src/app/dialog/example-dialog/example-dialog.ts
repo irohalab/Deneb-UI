@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { UIDialog, UIDialogRef } from '../../../../../irohalab/deneb-ui/src';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DARK_THEME, DarkThemeService, UIDialog, UIDialogRef } from '../../../../../irohalab/deneb-ui/src';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'example-dialog',
     templateUrl: 'example-dialog.html',
@@ -15,6 +16,11 @@ import { UIDialog, UIDialogRef } from '../../../../../irohalab/deneb-ui/src';
             width: 400px;
             height: 300px;
             background-color: #fff;
+        }
+        .dialog-content > .ui.basic.segment {
+            margin: 0;
+            width: 100%;
+            height: 100%;
             padding-bottom: 5rem;
         }
         .content {
@@ -32,13 +38,29 @@ import { UIDialog, UIDialogRef } from '../../../../../irohalab/deneb-ui/src';
         }
     `]
 })
-export class ExampleDialog {
+export class ExampleDialog implements OnInit, OnDestroy {
+    private _subscription = new Subscription();
 
     @Input()
     boundContent: string;
     result: string;
 
-    constructor(public dialogRef: UIDialogRef<ExampleDialog>, public dialog: UIDialog) {}
+    isDarkTheme: boolean;
+
+    constructor(public dialogRef: UIDialogRef<ExampleDialog>,
+                public dialog: UIDialog,
+                private _darkThemeService: DarkThemeService) {}
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => {this.isDarkTheme = theme === DARK_THEME;})
+        );
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
 
     openNewDialog() {
         let ref = this.dialog.open(ExampleDialog, this.dialogRef.config);

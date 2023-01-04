@@ -8,6 +8,18 @@
 @rightArrowBoxShadow: -@arrowStroke @arrowStroke 0px 0px @arrowColor;
 @bottomArrowBoxShadow: -@arrowStroke -@arrowStroke 0px 0px @arrowColor;
 
+@defaultBg: #ffffff;
+@defaultShadowColor: rgba(34,36,38,.15);
+@defaultBorderColor: #d6d6d6;
+
+@invertedBg: #1b1c1d;
+@invertedShadowColor: rgba(26, 26, 28, 0.15);
+@invertedBorderColor: #595959;
+@invertedArrowColor: #696969;
+@invertedArrowBoxShadow: @arrowStroke @arrowStroke 0px 0px @arrowColor;
+@invertedLeftArrowBoxShadow: @arrowStroke -@arrowStroke 0px 0px @arrowColor;
+@invertedRightArrowBoxShadow: -@arrowStroke @arrowStroke 0px 0px @arrowColor;
+@invertedBottomArrowBoxShadow: -@arrowStroke -@arrowStroke 0px 0px @arrowColor;
 
 :host {
   display: block;
@@ -18,17 +30,46 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   z-index: 1900;
+  &.inverted {
+    .ui-basic-popover {
+      background: @invertedBg;
+      color: @defaultBg;
+      border-color: @invertedBorderColor;
+      &:before {
+        background: @invertedBg;
+      }
+      &:after {
+        background: @invertedBg;
+      }
+      &.bottom:before {
+        box-shadow: @invertedBottomArrowBoxShadow;
+      }
+      &.bottom-start:before {
+        box-shadow: @invertedBottomArrowBoxShadow;
+      }
+      &.bottom-end:before {
+        box-shadow: @invertedBottomArrowBoxShadow;
+      }
+      &.right:before {
+        box-shadow: @invertedRightArrowBoxShadow;
+      }
+      &.left:before {
+        box-shadow: @invertedLeftArrowBoxShadow;
+      }
+    }
+  }
 }
 
 .ui-basic-popover {
   position: relative;
-  border: 1px solid #d6d6d6;
+  border: 1px solid @defaultBorderColor;
   border-radius: 4px;
-  background: #ffffff;
+  background: @defaultBg;
   margin: 0.5rem;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
-  -moz-box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
-  box-shadow: 0 2px 4px 0 rgba(34,36,38,.12), 0 2px 10px 0 rgba(34,36,38,.15);
+  -webkit-box-shadow: 0 2px 4px 0 @defaultShadowColor, 0 2px 10px 0 @defaultShadowColor;
+  -moz-box-shadow: 0 2px 4px 0 @defaultShadowColor, 0 2px 10px 0 @defaultShadowColor;
+  box-shadow: 0 2px 4px 0 @defaultShadowColor, 0 2px 10px 0 @defaultShadowColor;
+
   .popover-title {
     padding: 0.6rem 0.8rem 0.2rem 0.8rem;
     font-weight: bold;

@@ -8,8 +8,11 @@
         <a class="item" routerLink="/dropdown">Dropdown</a>
         <a class="item" routerLink="/toggle">Toggle</a>
         <a class="item" routerLink="/popover">Popover</a>
+        <div class="item">
+            <ui-toggle text="Dark Theme" [(ngModel)]="darkTheme" name="darkThemeToggle"></ui-toggle>
+        </div>
     </div>
-    <div class="main-container">
+    <div class="main-container" [ngClass]="{'dark-theme': darkTheme}">
         <router-outlet></router-outlet>
     </div>
 </div>
