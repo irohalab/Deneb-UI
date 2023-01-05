@@ -8,4 +8,5 @@
        (change)="onInputChange()">
 <label [ngClass]="{ready: ready, disabled: isDisabled, inverted: isDarkTheme}" [for]="inputId">
     {{text}}
+    <ng-content></ng-content>
 </label>

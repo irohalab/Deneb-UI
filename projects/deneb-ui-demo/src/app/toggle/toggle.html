@@ -20,6 +20,12 @@
         <div class="field">
             <ui-toggle text="Toggle 5 with disabled" [(ngModel)]="value5" name="toggle5" [disabled]="value1"></ui-toggle>
         </div>
+        <div class="field">
+            <label>Template content</label>
+            <ui-toggle [(ngModel)]="value5" name="toggle6">
+                <i class="moon icon"></i>
+            </ui-toggle>
+        </div>
     </form>
     <form class="ui form dark">
         <h2>Dark theme</h2>
