@@ -1,4 +1,10 @@
 @scrollbar-width: 0.8rem;
+@scrollbarThumbColor: #bdbdbd;
+@scrollbarThumbHoverColor: #adadad;
+@scrollbarHoverBg: rgba(116, 116, 116, 0.05);
+@darkScrollbarThumbColor: #777777;
+@darkScrollbarHoverBg: rgba(255, 255, 255, 0.1);
+@darkScrollbarThumbHoverColor: #ababab;
 .scrollbar {
   position: absolute;
   display: block;
@@ -20,12 +26,24 @@
     right: 0;
     width: @scrollbar-width;
     -webkit-tap-highlight-color: transparent;
-    background-color: #bdbdbd;
+    background-color: @scrollbarThumbColor;
   }
   &:hover {
-    background-color: rgba(116, 116, 116, 0.05);
+    background-color: @scrollbarHoverBg;
     .scrollbar-thumb {
-      background-color: #adadad;
+      background-color: @scrollbarThumbHoverColor;
+    }
+  }
+
+  &.dark-theme {
+    .scrollbar-thumb {
+      background-color: @darkScrollbarThumbColor;
+    }
+    &:hover {
+      background-color: @darkScrollbarHoverBg;
+      .scrollbar-thumb {
+        background-color: @darkScrollbarThumbHoverColor;
+      }
     }
   }
 }

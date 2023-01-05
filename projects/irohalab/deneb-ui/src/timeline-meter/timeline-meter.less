@@ -2,6 +2,8 @@
 @marker-width: (@meter-width / 8);
 @scrollbar-width: 0.8rem;
 
+@tooltipShadow: rgba(134, 134, 134, 0.2);
+
 .ui-timeline-meter-container {
   position: relative;
   width: 100%;
@@ -110,6 +112,31 @@
       width: 4.8rem;
       .float-mark {
         width: 4.4rem;
+      }
+    }
+  }
+
+  &.dark-theme {
+    .ui-timeline-meter {
+      .render-wrapper {
+        .render-entity {
+          .label {
+            color: #ffffff;
+          }
+          .marker {
+            background-color: rgba(255, 255, 255, 0.6);
+          }
+        }
+      }
+      .meter-tooltip {
+        background-color: #5d5d5d;
+        -webkit-box-shadow: 1px 1px 3px @tooltipShadow;
+        -moz-box-shadow: 1px 1px 3px @tooltipShadow;
+        box-shadow: 1px 1px 3px @tooltipShadow;
+        color: #ffffff;
+      }
+      .float-mark {
+        background-color: #c2c2e8;
       }
     }
   }

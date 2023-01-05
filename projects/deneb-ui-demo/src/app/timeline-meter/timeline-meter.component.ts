@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DARK_THEME, DarkThemeService } from '../../../../irohalab/deneb-ui/src';
 @Component({
     selector: 'timeline-meter-demo',
     templateUrl: './timeline-meter.html',
@@ -13,20 +15,35 @@ import {Component, OnInit} from '@angular/core';
                 width: 100%;
                 font-size: 16px;
             }
+            .demo-card.dark-theme {
+                color: #ffffff;
+            }
         `
     ]
 })
-export class TimelineMeterExample implements OnInit {
+export class TimelineMeterExample implements OnInit, OnDestroy {
+    private _subscription = new Subscription();
     cards: string[];
     timestampList: number[];
 
     newPosition: number;
+
+    isDarkTheme: boolean;
+
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
 
     onScrollPositionChange(p: number) {
         console.log(p);
     }
 
     ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => {this.isDarkTheme = theme === DARK_THEME})
+        );
+
         this.newPosition = 2000;
         setTimeout(() => {
             let timestamp = Date.now();
@@ -43,5 +60,9 @@ export class TimelineMeterExample implements OnInit {
         //     this.timestampList = [];
         //     this.cards = [];
         // }, 4000);
+    }
+
+    public ngOnDestroy(): void {
+        this._subscription.unsubscribe();
     }
 }

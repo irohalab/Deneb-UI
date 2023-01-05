@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { UIPopoverModule } from './index';
 import { By } from '@angular/platform-browser';
+import { DarkThemeService } from '../dark-theme.service';
 
 describe('UIPopover', () => {
     let fixture: ComponentFixture<any>;
@@ -18,7 +19,8 @@ describe('UIPopover', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [UIPopoverModule],
-            declarations: [TestComponent]
+            declarations: [TestComponent],
+            providers: [DarkThemeService]
         });
     }));
 

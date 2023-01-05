@@ -1,6 +1,9 @@
 @transitionTime: 0.2s;
 @activeBg: #97bbf7;
 @inactiveBg: #adadad;
+@shadowColor: rgba(0, 0, 0, 0.8);
+@shadowColorLight: rgba(0, 0, 0, 0.4);
+@bgColor: #ffffff;
 
 :host {
   display: inline-block;
@@ -17,6 +20,9 @@ label {
   position: relative;
   line-height: 1.4;
   cursor: pointer;
+  &.inverted {
+    color: @bgColor;
+  }
   &:before {
     content: " ";
     position: absolute;
@@ -34,11 +40,11 @@ label {
     height: 1em;
     top: 0.2em;
     left: 0.1em;
-    background: #ffffff;
+    background: @bgColor;
     border-radius: 0.5em;
-    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
-    -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0 0 2px @shadowColor;
+    -moz-box-shadow: 0 0 2px @shadowColor;
+    box-shadow: 0 0 2px @shadowColor;
   }
 
   &.ready {
@@ -59,13 +65,16 @@ label {
     }
   }
   &.disabled {
+    &.inverted {
+      color: darken(@bgColor, 25%);
+    }
     &:before {
       background: lighten(@inactiveBg, 15%);
     }
     &:after {
-      -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-      -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+      -webkit-box-shadow: 0 0 2px @shadowColorLight;
+      -moz-box-shadow: 0 0 2px @shadowColorLight;
+      box-shadow: 0 0 2px @shadowColorLight;
     }
   }
 }

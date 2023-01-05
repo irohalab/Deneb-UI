@@ -12,6 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UIDialog } from './dialog';
 import { UIDialogRef } from './dialog-ref';
 import { UIDialogModule } from './index';
+import { DarkThemeService } from '../dark-theme.service';
 
 describe('UIDialog', () => {
     let dialog: UIDialog;
@@ -20,7 +21,8 @@ describe('UIDialog', () => {
         TestBed.configureTestingModule({
             imports: [DialogTestModule, UIDialogModule, NoopAnimationsModule],
             providers: [
-                { provide: ComponentFixtureAutoDetect, useValue: true}
+                { provide: ComponentFixtureAutoDetect, useValue: true},
+                DarkThemeService
             ]
         });
 

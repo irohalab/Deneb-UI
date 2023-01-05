@@ -3,6 +3,7 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {Component} from '@angular/core';
 import {UIInfiniteListModule} from './index';
 import {By} from '@angular/platform-browser';
+import { DarkThemeService } from '../dark-theme.service';
 describe('InfiniteList', () => {
     const rowHeight = 40;
     let fixture: ComponentFixture<any>;
@@ -18,7 +19,8 @@ describe('InfiniteList', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [UIInfiniteListModule],
-            declarations: [TestComponent]
+            declarations: [TestComponent],
+            providers: [DarkThemeService]
         });
     }));
 

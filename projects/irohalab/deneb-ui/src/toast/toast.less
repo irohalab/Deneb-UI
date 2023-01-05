@@ -1,7 +1,7 @@
 :host {
   display: block;
   box-sizing: border-box;
-  background-color: black;
+  //background-color: black;
   position: fixed;
   bottom: 15px;
   left: 50%;
@@ -10,8 +10,15 @@
   -ms-transform: translateX(-50%);
   -o-transform: translateX(-50%);
   transform: translateX(-50%);
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
   z-index: 2147483647;
+  .ui.black.message {
+    -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.75);
+  }
+  &.dark-theme .ui.black.message {
+    -webkit-box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.75);
+    -moz-box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.75);
+    box-shadow: 1px 1px 5px rgba(255, 255, 255, 0.75);
+  }
 }

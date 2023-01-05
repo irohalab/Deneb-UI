@@ -8,6 +8,7 @@ import { UIScrollbarModule } from './scrollbar';
 import { UIDropdownModule } from './dropdown';
 import { UIToggleModule } from './toggle';
 import { UIPopoverModule } from './popover';
+import { DarkThemeService } from './dark-theme.service';
 
 const UI_MODULES = [
     UIDialogModule,
@@ -23,7 +24,8 @@ const UI_MODULES = [
 
 @NgModule({
     imports: UI_MODULES,
-    exports: UI_MODULES
+    exports: UI_MODULES,
+    providers: [DarkThemeService]
 })
 export class UIModule {
 
@@ -38,3 +40,5 @@ export * from './scrollbar';
 export * from './dropdown';
 export * from './toggle';
 export * from './popover';
+
+export * from './dark-theme.service';

@@ -5,6 +5,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { Component, ContentChild, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { UIToggle } from './toggle';
 import { By } from '@angular/platform-browser';
+import { DarkThemeService } from '../dark-theme.service';
 describe('UIToggle', () => {
 
     let fixture: ComponentFixture<any>;
@@ -19,7 +20,8 @@ describe('UIToggle', () => {
             imports: [UIToggleModule, FormsModule],
             declarations: [
                 NgModelBasic
-            ]
+            ],
+            providers: [DarkThemeService]
         });
 
         TestBed.compileComponents();

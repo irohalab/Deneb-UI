@@ -1,4 +1,4 @@
-<div class="ui-timeline-meter-container" #container>
+<div class="ui-timeline-meter-container" [ngClass]="{'dark-theme': isDarkTheme}" #container>
     <div class="scrollable-content-wrapper">
         <ng-content></ng-content>
     </div>

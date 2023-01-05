@@ -3,10 +3,11 @@ import {fromEvent as observableFromEvent, Observable, Subscription} from 'rxjs';
 
 import {takeUntil, mergeMap, tap, filter, debounceTime} from 'rxjs/operators';
 import {
-    AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges,
+    AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {isInRect} from '../core/helpers';
+import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 
 export const SCROLL_DISTANCE = 10;
 
@@ -15,7 +16,7 @@ export const SCROLL_DISTANCE = 10;
     templateUrl: 'scrollbar.html',
     styleUrls: ['scrollbar.less']
 })
-export class UIScrollbar implements AfterViewInit, OnChanges, OnDestroy {
+export class UIScrollbar implements AfterViewInit, OnChanges, OnDestroy, OnInit {
 
     private _subscription = new Subscription();
     private _isDrag: boolean;
@@ -53,7 +54,19 @@ export class UIScrollbar implements AfterViewInit, OnChanges, OnDestroy {
     scrollbarThumbHeight: number;
     scrollbarThumbTop: number = 0;
 
+    isDarkTheme: boolean;
+
     @ViewChild('scrollbar') scrollbar: ElementRef;
+
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => {this.isDarkTheme = theme === DARK_THEME})
+        );
+    }
 
     ngAfterViewInit(): void {
         let scrollbar = this.scrollbar.nativeElement;

@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {UIDropdownModule} from './index';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
+import { DarkThemeService } from '../dark-theme.service';
 
 describe('UIDropdown', () => {
     let fixture: ComponentFixture<any>;
@@ -18,7 +19,8 @@ describe('UIDropdown', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [UIDropdownModule],
-            declarations: [TestComponent]
+            declarations: [TestComponent],
+            providers: [DarkThemeService]
         });
     }));
 
