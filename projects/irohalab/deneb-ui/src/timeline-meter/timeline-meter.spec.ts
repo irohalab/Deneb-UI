@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {UIInfiniteListModule} from '../infinite-list/index';
 import {UITimelineMeterModule} from './index';
 import {By} from '@angular/platform-browser';
+import { DarkThemeService } from '../dark-theme.service';
 
 describe('UITimelineMeter', () => {
     const rowHeight = 40;
@@ -19,7 +20,8 @@ describe('UITimelineMeter', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [UIInfiniteListModule, UITimelineMeterModule],
-            declarations: [TestComponent]
+            declarations: [TestComponent],
+            providers: [DarkThemeService]
         });
     }));
 

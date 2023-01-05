@@ -3,6 +3,7 @@ import {UIPaginationModule} from './index';
 import {DebugElement} from '@angular/core';
 import {UIPagination} from './pagination';
 import {By} from '@angular/platform-browser';
+import { DarkThemeService } from '../dark-theme.service';
 
 function itemToArray(el: HTMLElement): string[] {
     let arr = [], allItems = el.querySelectorAll('.item.page-num');
@@ -20,7 +21,8 @@ describe('UIPagination', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [UIPaginationModule]
+            imports: [UIPaginationModule],
+            providers: [DarkThemeService]
         });
 
         fixture = TestBed.createComponent(UIPagination);

@@ -6,6 +6,7 @@ import { UIToastModule } from './index';
 import { UIToast } from './toast';
 import { UIToastAnimation } from './toast-interface';
 import { UIToastRef } from './toast-ref';
+import { DarkThemeService } from '../dark-theme.service';
 
 describe('UIToast', () => {
     let toast: UIToast;
@@ -13,7 +14,8 @@ describe('UIToast', () => {
     let toastRef: UIToastRef<any>;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, UIToastModule, ToastTestModule]
+            imports: [NoopAnimationsModule, UIToastModule, ToastTestModule],
+            providers: [DarkThemeService]
         });
 
         TestBed.compileComponents();

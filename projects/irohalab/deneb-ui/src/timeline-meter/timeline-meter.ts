@@ -3,11 +3,12 @@ import {fromEvent as observableFromEvent, BehaviorSubject, Observable, Subscript
 
 import {debounceTime, tap, takeUntil, map, mergeMap, filter} from 'rxjs/operators';
 import {
-    AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, Optional, SimpleChanges,
+    AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {isInRect} from '../core/helpers';
 import {SCROLL_STATE, SCROLL_STOP_TIME_THRESHOLD} from '../infinite-list/infinite-list';
+import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 
 export class RowItem {
     // use native Date instead Momentjs to get a good performance
@@ -54,8 +55,7 @@ export const TOOLTIP_FADE_TIME = 800;
     templateUrl: 'timeline-meter.html',
     styleUrls: ['timeline-meter.less']
 })
-export class UITimeLineMeter implements AfterViewInit, OnDestroy, OnChanges {
-
+export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChanges {
     private _subscription = new Subscription();
 
     private _scrollPosition = new BehaviorSubject<number>(0);
@@ -92,6 +92,8 @@ export class UITimeLineMeter implements AfterViewInit, OnDestroy, OnChanges {
     showTooltip: boolean = false;
     floatMarkPos: string;
     pointedItem: RowItem;
+
+    isDarkTheme: boolean;
 
     @ViewChild('meter') meter: ElementRef;
     @ViewChild('container') container: ElementRef;
@@ -138,6 +140,16 @@ export class UITimeLineMeter implements AfterViewInit, OnDestroy, OnChanges {
             return item;
         });
         this.buildMeter();
+    }
+
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => { this.isDarkTheme = theme === DARK_THEME })
+        );
     }
 
     /**

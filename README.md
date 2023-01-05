@@ -17,6 +17,69 @@ Notice: When you want to use toast, you must import `BrowserAnimationsModule` in
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
+## Dark Theme Support
+All components support dark theme, for directive you need to implement your dark theme yourself. This UIModule provides
+a DarkThemeService to change theme or subscribe to theme change. If you import the modules individually, you need to import the 
+service to module providers manually:
+
+```typescript
+import { DarkThemeService } from '@irohalab/deneb-ui';
+import { NgModule } from '@angular/core';
+
+@NgModule({
+    providers: [DarkThemeService]
+})
+class YourModule {
+}
+```
+### Listen to theme change
+
+To subscribe the `DarkThemeService` theme change observable:
+
+```typescript
+import { OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DarkThemeService } from '@irohalab/deneb-ui';
+import { DARK_THEME } from '@irohalab/deneb-ui';
+
+class YourComponent implements OnInit, OnDestroy {
+    private _subscription = new Subscription();
+
+    isDarkTheme: boolean;
+
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
+    ngOnInit(): void {
+        this._subscription.add(
+            this._darkThemeService.themeChange
+                .subscribe(theme => {
+                    this.isDarkTheme = theme === DARK_THEME
+                })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this._subscription.unsubscribe();
+    }
+}
+```
+### Change the theme
+
+```typescript
+import { DarkThemeService } from '@irohalab/deneb-ui';
+import { DARK_THEME } from '@irohalab/deneb-ui';
+
+class YourComponent {
+    constructor(private _darkThemeService: DarkThemeService) {
+    }
+
+    changeTheme(): void {
+        this._darkThemeService.changeTheme(DARK_THEME);
+    }
+}
+```
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
