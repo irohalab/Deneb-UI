@@ -18,7 +18,7 @@ import { DARK_THEME, DarkThemeService, LIGHT_THEME } from '../../../irohalab/den
             overflow-x: hidden;
             overflow-y: auto;
             &.dark-theme {
-                background-color: black;
+                background-color: #1b1c1d;
             }
         }
     `]

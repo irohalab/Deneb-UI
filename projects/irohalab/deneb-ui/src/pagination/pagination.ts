@@ -12,7 +12,7 @@ export interface PageNumber {
 @Component({
     selector: 'ui-pagination',
     template: `
-        <div class="ui pagination menu" [ngClass]="{inverted: isDarkTheme}">
+        <div class="ui pagination menu pagination-container" [ngClass]="{inverted: isDarkTheme}">
             <a class="item page-navigator" [ngClass]="{disabled: currentPage <= 1}" (click)="prevPage()">
                 <i class="angle left icon"></i>
             </a>
@@ -24,7 +24,12 @@ export interface PageNumber {
                 <i class="angle right icon"></i>
             </a>
         </div>
-    `
+    `,
+    styles: [`
+        .pagination-container.ui.pagination.menu.inverted {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    `]
 })
 export class UIPagination implements OnInit, OnDestroy {
     private _subscription = new Subscription();

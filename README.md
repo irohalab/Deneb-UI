@@ -18,6 +18,8 @@ Notice: When you want to use toast, you must import `BrowserAnimationsModule` in
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
 
 ## Dark Theme Support
+You should set your background color as `#1b1c1d` just the same color as semantic ui
+
 All components support dark theme, for directive you need to implement your dark theme yourself. This UIModule provides
 a DarkThemeService to change theme or subscribe to theme change. If you import the modules individually, you need to import the 
 service to module providers manually:
