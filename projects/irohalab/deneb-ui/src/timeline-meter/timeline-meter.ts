@@ -93,6 +93,9 @@ export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChan
     floatMarkPos: string;
     pointedItem: RowItem;
 
+    @Input()
+    disableDarkTheme: boolean = false;
+
     isDarkTheme: boolean;
 
     @ViewChild('meter') meter: ElementRef;
@@ -146,10 +149,14 @@ export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChan
     }
 
     ngOnInit(): void {
-        this._subscription.add(
-            this._darkThemeService.themeChange
-                .subscribe(theme => { this.isDarkTheme = theme === DARK_THEME })
-        );
+        if (this.disableDarkTheme) {
+            this.isDarkTheme = false;
+        } else {
+            this._subscription.add(
+                this._darkThemeService.themeChange
+                    .subscribe(theme => { this.isDarkTheme = theme === DARK_THEME })
+            );
+        }
     }
 
     /**

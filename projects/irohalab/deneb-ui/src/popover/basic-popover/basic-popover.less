@@ -16,10 +16,10 @@
 @invertedShadowColor: rgba(26, 26, 28, 0.15);
 @invertedBorderColor: #595959;
 @invertedArrowColor: #696969;
-@invertedArrowBoxShadow: @arrowStroke @arrowStroke 0px 0px @arrowColor;
-@invertedLeftArrowBoxShadow: @arrowStroke -@arrowStroke 0px 0px @arrowColor;
-@invertedRightArrowBoxShadow: -@arrowStroke @arrowStroke 0px 0px @arrowColor;
-@invertedBottomArrowBoxShadow: -@arrowStroke -@arrowStroke 0px 0px @arrowColor;
+@invertedArrowBoxShadow: @arrowStroke @arrowStroke 0px 0px @invertedArrowColor;
+@invertedLeftArrowBoxShadow: @arrowStroke -@arrowStroke 0px 0px @invertedArrowColor;
+@invertedRightArrowBoxShadow: -@arrowStroke @arrowStroke 0px 0px @invertedArrowColor;
+@invertedBottomArrowBoxShadow: -@arrowStroke -@arrowStroke 0px 0px @invertedArrowColor;
 
 :host {
   display: block;
