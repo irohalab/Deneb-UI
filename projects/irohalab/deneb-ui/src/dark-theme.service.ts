@@ -17,7 +17,7 @@ export class DarkThemeService {
 
     constructor() {
         const theme = window.localStorage.getItem(THEME_FOR_DENEB);
-        if (theme === LIGHT_THEME || theme === LIGHT_THEME) {
+        if (theme === DARK_THEME || theme === LIGHT_THEME) {
             this._themeChangeSubject.next(theme);
         }
     }
