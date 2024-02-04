@@ -101,10 +101,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Deneb-UI-Demo:build:production"
+              "buildTarget": "Deneb-UI-Demo:build:production"
             },
             "development": {
-              "browserTarget": "Deneb-UI-Demo:build:development"
+              "buildTarget": "Deneb-UI-Demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -112,7 +112,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Deneb-UI-Demo:build:development"
+            "buildTarget": "Deneb-UI-Demo:build:development"
           }
         },
         "test": {
