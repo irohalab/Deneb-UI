@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {UIDropdownModule} from './index';
 import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
@@ -16,7 +16,7 @@ describe('UIDropdown', () => {
         fixture = null;
     });
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [UIDropdownModule],
             declarations: [TestComponent],

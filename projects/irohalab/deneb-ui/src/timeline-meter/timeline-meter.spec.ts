@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {UIInfiniteListModule} from '../infinite-list/index';
 import {UITimelineMeterModule} from './index';
 import {By} from '@angular/platform-browser';
@@ -17,7 +17,7 @@ describe('UITimelineMeter', () => {
         fixture = null;
     });
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [UIInfiniteListModule, UITimelineMeterModule],
             declarations: [TestComponent],

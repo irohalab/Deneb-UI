@@ -72,8 +72,7 @@ import { ToggleDemo } from './toggle/toggle.component';
             },
         ], {enableTracing: false})
     ],
-    bootstrap: [App],
-    entryComponents: [ExampleDialog, PopoverContentComponent]
+    bootstrap: [App]
 })
 export class AppModule {
 

@@ -5,8 +5,7 @@ import {UIToast} from './toast';
 @NgModule({
     declarations: [UIToastComponent],
     providers: [UIToast],
-    exports: [UIToastComponent],
-    entryComponents: [UIToastComponent]
+    exports: [UIToastComponent]
 })
 export class UIToastModule {
 

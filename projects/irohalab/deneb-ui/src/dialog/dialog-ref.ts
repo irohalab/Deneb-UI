@@ -1,11 +1,9 @@
 import {Observable, Subject, Subscription} from 'rxjs';
 import {
     ApplicationRef,
-    ComponentFactoryResolver,
-    ComponentRef, createComponent,
+    ComponentRef,
     Injector,
-    Type,
-    ViewContainerRef
+    Type
 } from '@angular/core';
 import {UIDialogConfig} from './dialog';
 import {UIDialogContainer} from './dialog-container';

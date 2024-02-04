@@ -8,8 +8,7 @@ import { BasicPopoverComponent } from './basic-popover/basic-popover.component';
     declarations: [UIPopoverDirective, BasicPopoverComponent],
     providers: [UIPopover],
     imports: [CommonModule],
-    exports: [UIPopoverDirective],
-    entryComponents: [BasicPopoverComponent]
+    exports: [UIPopoverDirective]
 })
 export class UIPopoverModule {
 

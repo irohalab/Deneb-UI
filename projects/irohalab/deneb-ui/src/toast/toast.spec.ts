@@ -1,6 +1,6 @@
 import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import { ApplicationRef, Component, EventEmitter, Input, NgModule } from '@angular/core';
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UIToastModule } from './index';
 import { UIToast } from './toast';
@@ -12,7 +12,7 @@ describe('UIToast', () => {
     let toast: UIToast;
     let appRef: ApplicationRef;
     let toastRef: UIToastRef<any>;
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, UIToastModule, ToastTestModule],
             providers: [DarkThemeService]
@@ -26,7 +26,7 @@ describe('UIToast', () => {
         appRef = aref;
     }));
 
-    afterEach(async(() => {
+    afterEach(waitForAsync(() => {
         toastRef.hide();
     }));
 
@@ -107,8 +107,7 @@ const TEST_DIRECTIVES = [TestToastComponent];
 @NgModule({
     declarations: TEST_DIRECTIVES,
     imports: [UIToastModule],
-    exports: TEST_DIRECTIVES,
-    entryComponents: [TestToastComponent]
+    exports: TEST_DIRECTIVES
 })
 class ToastTestModule {
 

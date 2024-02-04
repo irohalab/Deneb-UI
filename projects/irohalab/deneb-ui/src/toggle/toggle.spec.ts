@@ -1,4 +1,11 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick, flushMicrotasks } from '@angular/core/testing';
+import {
+    ComponentFixture,
+    TestBed,
+    fakeAsync,
+    tick,
+    flushMicrotasks,
+    waitForAsync
+} from '@angular/core/testing';
 import { click } from '../test-helper';
 import { UIToggleModule } from './index';
 import { FormsModule, NgModel } from '@angular/forms';
@@ -15,7 +22,7 @@ describe('UIToggle', () => {
         return new Event(type, {bubbles: true, cancelable: true});
     }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [UIToggleModule, FormsModule],
             declarations: [
