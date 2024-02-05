@@ -15,7 +15,7 @@ export class UIToastRef<T> {
         if (typeof message !== 'undefined') {
             this.messageObject = message;
         }
-        let componentRef = this._toastService.createComponent(this);
+        let componentRef = this._toastService.makeComponent(this);
         this._bindingMessage(this.messageObject, componentRef.instance);
         this._toastService.activeToast(componentRef, this.duration);
     }

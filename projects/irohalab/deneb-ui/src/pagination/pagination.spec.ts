@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {UIPaginationModule} from './index';
 import {DebugElement} from '@angular/core';
 import {UIPagination} from './pagination';
@@ -19,7 +19,7 @@ describe('UIPagination', () => {
     let de: DebugElement;
     let el: HTMLElement;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [UIPaginationModule],
             providers: [DarkThemeService]

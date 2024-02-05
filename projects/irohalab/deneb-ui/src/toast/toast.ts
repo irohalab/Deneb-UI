@@ -1,6 +1,7 @@
 import {
-    Injectable, Injector, ApplicationRef, ComponentFactoryResolver, Type, ComponentRef,
-    EmbeddedViewRef
+    Injectable, Injector, ApplicationRef, Type, ComponentRef,
+    EmbeddedViewRef,
+    createComponent
 } from '@angular/core';
 import {UIToastRef} from './toast-ref';
 import {UIToastComponent} from './toast.component';
@@ -21,8 +22,7 @@ export class UIToast {
     private timerId: any;
 
     constructor(private _injector: Injector,
-                private _appRef: ApplicationRef,
-                private _componentFactoryResolver: ComponentFactoryResolver) {
+                private _appRef: ApplicationRef) {
     }
 
     make<T>(componentType?: Type<T>): UIToastRef<T> {
@@ -33,14 +33,9 @@ export class UIToast {
         return this.make(UIToastComponent);
     }
 
-    createComponent<T>(toastRef: UIToastRef<T>): ComponentRef<T> {
-        // if (this._lastActiveToast && this._lastActiveToast.componentType === toastRef.componentType) {
-        //     console.log('reused', this._lastActiveToast);
-        //     return this._lastActiveToast;
-        // }
-        let componentFactory = this._componentFactoryResolver.resolveComponentFactory(toastRef.componentType);
+    makeComponent<T>(toastRef: UIToastRef<T>): ComponentRef<T> {
         let toastInject = new ToastInjector(toastRef, this._injector);
-        return componentFactory.create(toastInject);
+        return createComponent(toastRef.componentType, {environmentInjector: this._appRef.injector, elementInjector: toastInject});
     }
 
     activeToast<T>(component: ComponentRef<T>, duration: number) {

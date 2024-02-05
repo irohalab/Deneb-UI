@@ -7,8 +7,7 @@ import { CommonModule } from '@angular/common';
     declarations: [UIDialogContainer],
     providers: [UIDialog],
     imports: [CommonModule],
-    exports: [UIDialogContainer],
-    entryComponents: [UIDialogContainer]
+    exports: [UIDialogContainer]
 })
 export class UIDialogModule {
 

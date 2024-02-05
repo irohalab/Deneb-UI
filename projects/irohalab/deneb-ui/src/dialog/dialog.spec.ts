@@ -1,11 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import {
-    async,
     ComponentFixtureAutoDetect,
-    fakeAsync,
     inject,
     TestBed,
-    tick,
     waitForAsync
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -56,7 +53,6 @@ const TEST_DIRECTIVES = [
 @NgModule({
     declarations: TEST_DIRECTIVES,
     imports: [UIDialogModule],
-    exports: TEST_DIRECTIVES,
-    entryComponents: [ExampleDialog]
+    exports: TEST_DIRECTIVES
 })
 class DialogTestModule {}

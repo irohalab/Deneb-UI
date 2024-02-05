@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { UIPopoverModule } from './index';
 import { By } from '@angular/platform-browser';
@@ -16,7 +16,7 @@ describe('UIPopover', () => {
         fixture = null;
     });
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [UIPopoverModule],
             declarations: [TestComponent],
