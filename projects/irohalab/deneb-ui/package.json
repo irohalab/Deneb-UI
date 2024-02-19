@@ -9,9 +9,9 @@
     "url": "https://github.com/irohalab/Deneb-UI.git"
   },
   "peerDependencies": {
-    "@angular/common": "^14.2.0",
-    "@angular/core": "^14.2.0",
-    "@angular/animations": "^14.2.0",
+    "@angular/common": "^17.1.2",
+    "@angular/core": "^17.1.2",
+    "@angular/animations": "^17.1.2",
     "popper.js": "^1.12.9"
   },
   "dependencies": {
