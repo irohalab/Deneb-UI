@@ -1,5 +1,6 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 export const DARK_THEME = 'dark_theme';
 export const LIGHT_THEME = 'light_theme';
@@ -17,9 +18,11 @@ export class DarkThemeService implements OnDestroy {
         return this._themeChangeSubject.asObservable();
     }
 
-    constructor() {
-        this.checkTheme();
-        this.initGlobalListener();
+    constructor(@Inject(PLATFORM_ID) platformId: object) {
+        if (isPlatformBrowser(platformId)) {
+            this.checkTheme();
+            this.initGlobalListener();
+        }
     }
 
     public changeTheme(theme: ThemeName): void {

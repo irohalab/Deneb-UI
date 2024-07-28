@@ -1,10 +1,11 @@
 {
   "name": "deneb-ui",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "ng serve --project Deneb-UI-Demo",
+    "build": "npm run build:deneb-ui",
+    "build:deneb-ui": "ng build --project @irohalab/Deneb-UI",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
