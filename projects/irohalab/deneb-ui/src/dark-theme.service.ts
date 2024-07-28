@@ -18,7 +18,7 @@ export class DarkThemeService implements OnDestroy {
         return this._themeChangeSubject.asObservable();
     }
 
-    constructor(@Inject(PLATFORM_ID) platformId: object) {
+    constructor(@Inject(PLATFORM_ID) private platformId: object) {
         if (isPlatformBrowser(platformId)) {
             this.checkTheme();
             this.initGlobalListener();
@@ -37,7 +37,9 @@ export class DarkThemeService implements OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        window.removeEventListener(EVENT_NAME, this._globalListenerInstance);
+        if (isPlatformBrowser(this.platformId)) {
+            window.removeEventListener(EVENT_NAME, this._globalListenerInstance);
+        }
     }
 
     private initGlobalListener(): void {
