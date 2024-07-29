@@ -1,13 +1,14 @@
 import {
     Injectable, Injector, ApplicationRef, Type, ComponentRef,
     EmbeddedViewRef,
-    createComponent
+    createComponent, Inject, PLATFORM_ID
 } from '@angular/core';
 import {UIToastRef} from './toast-ref';
 import {UIToastComponent} from './toast.component';
 import {ToastInjector} from './toast-injector';
 import {Subscription} from 'rxjs';
 import {UIToastAnimation} from './toast-interface';
+import { isPlatformServer } from '@angular/common';
 
 @Injectable()
 export class UIToast {
@@ -22,7 +23,8 @@ export class UIToast {
     private timerId: any;
 
     constructor(private _injector: Injector,
-                private _appRef: ApplicationRef) {
+                private _appRef: ApplicationRef,
+                @Inject(PLATFORM_ID) private platformId: object) {
     }
 
     make<T>(componentType?: Type<T>): UIToastRef<T> {
@@ -39,6 +41,9 @@ export class UIToast {
     }
 
     activeToast<T>(component: ComponentRef<T>, duration: number) {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
         if (this._pendingToast) {
             this._pendingToast = component;
             this._pendingToastDuration = duration;
@@ -60,13 +65,15 @@ export class UIToast {
 
         this._appRef.attachView(this._currentActiveToast.hostView);
         document.body.appendChild(this._getComponentRootNode(this._currentActiveToast));
-
         this.timerId = setTimeout(() => {
             this.deactiveToast();
         }, duration);
     }
 
     deactiveToast() {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
         clearTimeout(this.timerId);
         if (this._currentActiveToast) {
             if (this._currentActiveToast.instance['animationEvent'] && this._currentActiveToast.instance['uiLeaveAnimationDone']) {

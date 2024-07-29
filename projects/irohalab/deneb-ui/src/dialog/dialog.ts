@@ -28,7 +28,9 @@ export class UIDialog {
             const environmentInjector = this._appRef.injector;
             container = createComponent<UIDialogContainer>(UIDialogContainer, {environmentInjector});
             this._appRef.attachView(container.hostView);
-            document.body.appendChild(this.getComponentRootNode(container));
+            if (document) {
+                document.body.appendChild(this.getComponentRootNode(container));
+            }
         }
         container.instance.dialogConfig = config;
         container.instance.insideParent = !!viewContainer;

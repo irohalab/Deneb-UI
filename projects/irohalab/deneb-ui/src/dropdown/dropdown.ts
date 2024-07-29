@@ -1,8 +1,9 @@
 
-import {fromEvent as observableFromEvent,  Observable, Subscription } from 'rxjs';
+import {fromEvent as observableFromEvent, Subscription } from 'rxjs';
 
 import {takeUntil, delay, takeWhile, mergeMap, tap} from 'rxjs/operators';
-import { Directive, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, HostListener, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 @Directive({
     selector: '[uiDropdown]',
@@ -44,7 +45,8 @@ export class UIDropdown implements OnInit, OnDestroy {
         return this._menuOpen;
     }
 
-    constructor(private _element: ElementRef) {
+    constructor(private _element: ElementRef,
+                @Inject(PLATFORM_ID) private platformId: object) {
     }
 
     @HostListener('click', ['$event'])
@@ -58,6 +60,9 @@ export class UIDropdown implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
         let _el = this._element.nativeElement;
         this._subscription.add(
             observableFromEvent<MouseEvent>(document.body, 'click')
