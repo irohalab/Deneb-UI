@@ -32,15 +32,10 @@ export class UIPopoverRef<T> {
         this._appRef.attachView(componentRef.hostView);
         this._popper = new Popper(refElement, componentElement, {
             placement: this.placement
-            // onCreate: (data) => {
-            //     console.log('onCreate', data);
-            // },
-            // onUpdate: (data) => {
-            //     console.log('onUpdate', data);
-            // }
         });
         this._disposeCallback = () => {
             this._appRef.detachView(componentRef.hostView);
+            componentRef.destroy();
         };
     }
 
