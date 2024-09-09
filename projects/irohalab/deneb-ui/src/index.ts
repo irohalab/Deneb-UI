@@ -19,7 +19,8 @@ const UI_MODULES = [
     UIScrollbarModule,
     UIDropdownModule,
     UIToggleModule,
-    UIPopoverModule
+    UIPopoverModule,
+
 ];
 
 @NgModule({
@@ -40,5 +41,6 @@ export * from './scrollbar';
 export * from './dropdown';
 export * from './toggle';
 export * from './popover';
+export * from './responsive-image';
 
 export * from './dark-theme.service';
