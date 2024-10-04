@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 
 export interface ObservableStub {
     target: Element;
@@ -8,12 +9,16 @@ export interface ObservableStub {
 
 @Injectable()
 export class UIResponsiveService {
-    private _observer: IntersectionObserver;
+    private _observer: IntersectionObserver | ServerIntersectionObserverFallback;
 
     private _observableStubList: ObservableStub[] = [];
 
-    constructor() {
-        this._observer = new IntersectionObserver(this.intersectionCallback.bind(this));
+    constructor(@Inject(PLATFORM_ID) platformId: object) {
+        if (isPlatformServer(platformId)) {
+            this._observer = new ServerIntersectionObserverFallback(this.intersectionCallback.bind(this));
+        } else {
+            this._observer = new IntersectionObserver(this.intersectionCallback.bind(this));
+        }
     }
 
     intersectionCallback(entries: IntersectionObserverEntry[]) {
@@ -52,4 +57,11 @@ export class UIResponsiveService {
         }
         return this._observableStubList.find(stub => stub.target === target);
     }
+}
+
+class ServerIntersectionObserverFallback  {
+    constructor(private callback: IntersectionObserverCallback) {}
+    observe(target: Element) {
+    }
+    unobserve(target: Element) {}
 }

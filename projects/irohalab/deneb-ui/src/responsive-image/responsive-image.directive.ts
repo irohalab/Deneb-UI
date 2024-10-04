@@ -23,7 +23,8 @@ export interface ResponsiveDimension {
  * - height is calculated or measured height
  */
 @Directive({
-    selector: 'img[originalSrc]'
+    selector: 'img[originalSrc]',
+    host: { ngSkipHydration: 'true' }
 })
 export class UIResponsiveImage implements OnInit, OnChanges, OnDestroy {
     private _src: string;
