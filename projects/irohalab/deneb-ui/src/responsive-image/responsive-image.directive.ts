@@ -1,9 +1,22 @@
 import {
-    ChangeDetectorRef, Directive, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnDestroy,
-    OnInit, Output, SimpleChanges
+    ChangeDetectorRef,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    HostListener,
+    Inject,
+    Input,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    Output,
+    SimpleChanges
 } from '@angular/core';
 import { ObservableStub, UIResponsiveService } from './responsive.service';
 import { getRemPixel, getVhInPixel, getVwInPixel } from '../core/dom';
+import { SRC_GENERATOR_SERVICE } from './DI';
+import { IResponsiveGenerateSrc } from './responsive.generate-src.service';
 
 export interface ResponsiveDimension {
     width: string; // px, rem, vw, auto, 100%
@@ -59,7 +72,8 @@ export class UIResponsiveImage implements OnInit, OnChanges, OnDestroy {
 
     constructor(private _element: ElementRef,
                 private _responsiveService: UIResponsiveService,
-                private _changeDetector: ChangeDetectorRef) {
+                private _changeDetector: ChangeDetectorRef,
+                @Inject(SRC_GENERATOR_SERVICE) private _srcGeneratorService: IResponsiveGenerateSrc) {
     }
 
     @HostListener('load', ['$event'])
@@ -165,10 +179,11 @@ export class UIResponsiveImage implements OnInit, OnChanges, OnDestroy {
             } else {
                 let width = this._width;
                 let height = this._height;
+                let ratio = 0;
                 if (this._width !== 0 && this._height !== 0
                     && Number.isFinite(this.dimension.originalWidth)
                     && Number.isFinite(this.dimension.originalHeight)) {
-                    let ratio = this._height / this._width;
+                    ratio = this._height / this._width;
                     let originalRatio = this.dimension.originalHeight / this.dimension.originalWidth;
                     if (originalRatio > ratio) {
                         width = this._width;
@@ -181,7 +196,8 @@ export class UIResponsiveImage implements OnInit, OnChanges, OnDestroy {
                         height = this._height;
                     }
                 }
-                this._respSrc = `${this._src}?size=${width}x${height}`;
+                this._respSrc = this._srcGeneratorService.makeRespSrc(
+                    this._src, width, height, this.dimension.originalWidth, this.dimension.originalHeight, ratio);
             }
             if (manualChangeDetection) {
                 this._changeDetector.detectChanges();

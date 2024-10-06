@@ -16,6 +16,7 @@ import { PopoverComponent } from './popover/popover.component';
 import { TimelineMeterExample } from './timeline-meter/timeline-meter.component';
 import { ToastDemo } from './toast/toast.component';
 import { ToggleDemo } from './toggle/toggle.component';
+import { ResponsiveImageComponent } from './responsive-image/responsive-image.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { ToggleDemo } from './toggle/toggle.component';
         DropdownDemo,
         ToggleDemo,
         PopoverComponent,
-        PopoverContentComponent
+        PopoverContentComponent,
+        ResponsiveImageComponent
     ],
     imports: [
         UIModule,
@@ -70,6 +72,10 @@ import { ToggleDemo } from './toggle/toggle.component';
                 path: 'popover',
                 component: PopoverComponent
             },
+            {
+                path: 'responsive-image',
+                component: ResponsiveImageComponent
+            }
         ], {enableTracing: false})
     ],
     bootstrap: [App]
