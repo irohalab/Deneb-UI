@@ -17,6 +17,7 @@ import { TimelineMeterExample } from './timeline-meter/timeline-meter.component'
 import { ToastDemo } from './toast/toast.component';
 import { ToggleDemo } from './toggle/toggle.component';
 import { ResponsiveImageComponent } from './responsive-image/responsive-image.component';
+import { InfiniteService } from './infinite-list/infinite.service';
 
 @NgModule({
     declarations: [
@@ -77,6 +78,9 @@ import { ResponsiveImageComponent } from './responsive-image/responsive-image.co
                 component: ResponsiveImageComponent
             }
         ], {enableTracing: false})
+    ],
+    providers: [
+        InfiniteService
     ],
     bootstrap: [App]
 })

@@ -1,7 +1,13 @@
 <div class="demo-container" *ngIf="collection">
     <infinite-list [rowHeight]="140" [newScrollPosition]="newPosition" (scrollPosition)="onScrollPositionChange($event)">
-        <list-item-example *infiniteFor="let row of collection; let i = index" [item]="row" [index]="i">
+        <list-item-example *infiniteFor="let row of collection; let isInit = isInitialized; let i = index; withBucket: bucketsStub"
+                           [item]="row"
+                           [index]="i"
+                           [isInit]="isInit">
 
         </list-item-example>
     </infinite-list>
+    <div class="information-container">
+        <p><strong>scroll position: </strong><span>{{scrollPosition}}</span></p>
+    </div>
 </div>
