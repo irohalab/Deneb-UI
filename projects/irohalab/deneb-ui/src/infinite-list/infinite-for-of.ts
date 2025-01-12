@@ -22,26 +22,27 @@ import {
 } from '@angular/core';
 import {InfiniteList} from './infinite-list';
 import {Subscription} from 'rxjs';
+import { InfiniteDataBucket, InfiniteDataBucketsStub } from './infinite-data-collection';
 
 export class Recycler {
     private limit: number = 0;
-    private _scrapViews: Map<number, ViewRef> = new Map();
+    private scrapViews: Map<number, ViewRef> = new Map();
 
     getView(position: number): ViewRef | null {
-        let view = this._scrapViews.get(position);
-        if (!view && this._scrapViews.size > 0) {
-            position = this._scrapViews.keys().next().value;
-            view = this._scrapViews.get(position);
+        let view = this.scrapViews.get(position);
+        if (!view && this.scrapViews.size > 0) {
+            position = this.scrapViews.keys().next().value;
+            view = this.scrapViews.get(position);
         }
         if (view) {
-            this._scrapViews.delete(position);
+            this.scrapViews.delete(position);
         }
         return view || null;
     }
 
     recycleView(position: number, view: ViewRef) {
         view.detach();
-        this._scrapViews.set(position, view);
+        this.scrapViews.set(position, view);
     }
 
     /**
@@ -51,12 +52,12 @@ export class Recycler {
         if (this.limit <= 1) {
             return;
         }
-        let keyIterator = this._scrapViews.keys();
+        let keyIterator = this.scrapViews.keys();
         let key: number;
-        while (this._scrapViews.size > this.limit) {
+        while (this.scrapViews.size > this.limit) {
             key = keyIterator.next().value;
-            this._scrapViews.get(key).destroy();
-            this._scrapViews.delete(key);
+            this.scrapViews.get(key).destroy();
+            this.scrapViews.delete(key);
         }
     }
 
@@ -66,15 +67,15 @@ export class Recycler {
     }
 
     clean() {
-        this._scrapViews.forEach((view: ViewRef) => {
+        this.scrapViews.forEach((view: ViewRef) => {
             view.destroy();
         });
-        this._scrapViews.clear();
+        this.scrapViews.clear();
     }
 }
 
 export class InfiniteRow {
-    constructor(public $implicit: any, public index: number, public count: number) {
+    constructor(public $implicit: any, public index: number, public count: number, public isInitialized: boolean) {
     }
 
     get first(): boolean {
@@ -135,9 +136,11 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
 
     private _pendingMeasurement: number;
 
-    private _collection: any[];
+    private _collection: any[] = [];
 
     private _recycler: Recycler = new Recycler();
+
+    private _bucketsStub: InfiniteDataBucketsStub;
 
     @Input() infiniteForOf: NgIterable<T>;
 
@@ -158,9 +161,29 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
     }
 
     @Input()
+    set infiniteForWithBucket(stub: InfiniteDataBucketsStub) {
+        if (!stub) {
+            this._bucketsStub = new InfiniteDataBucketsStub([], null, null);
+        }
+        this._bucketsStub = stub;
+    }
+
+    @Input()
     set infiniteForTemplate(value: TemplateRef<InfiniteRow>) {
         if (value) {
             this._template = value;
+        }
+    }
+
+    get buckets(): InfiniteDataBucket[] {
+        return this._bucketsStub ? this._bucketsStub.buckets : [];
+    }
+
+    get length() {
+        if (this.buckets.length === 0) {
+            return this._collection ? this._collection.length : 0;
+        } else {
+            return this.buckets[this.buckets.length - 1].end + 1;
         }
     }
 
@@ -194,11 +217,8 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
     }
 
     private applyChanges(changes: IterableChanges<T>) {
-        if (!this._collection) {
-            this._collection = [];
-        }
         let isMeasurementRequired = false;
-
+        console.log(changes);
         changes.forEachOperation((item: IterableChangeRecord<any>, adjustedPreviousIndex: number, currentIndex: number) => {
             if (item.previousIndex == null) {
                 // new item
@@ -222,6 +242,7 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
 
         if (isMeasurementRequired) {
             this.requestMeasure();
+            return;
         }
 
         this.requestLayout();
@@ -238,9 +259,12 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
                     this.requestLayout();
                 }
             ));
-        this._subscription.add(this._infiniteList.sizeChange.subscribe(
+        this._subscription.add(this._infiniteList.sizeChange
+            .pipe(filter(([width, height]) => {
+                return width !== 0 && height !== 0;
+            })).subscribe(
             ([width, height]) => {
-                // console.log('sizeChange: ', width, height);
+                console.log('sizeChange: ', width, height);
                 this._containerWidth = width;
                 this._containerHeight = height;
                 this.requestMeasure();
@@ -272,9 +296,8 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
     }
 
     private measure() {
-        let collectionNumber = !this._collection || this._collection.length === 0 ? 0 : this._collection.length;
         this._isInMeasure = true;
-        this._infiniteList.holderHeight = this._infiniteList.rowHeight * collectionNumber;
+        this._infiniteList.holderHeight = this._infiniteList.rowHeight * this.length;
         // calculate a approximate number of which a view can contain
         this.calculateScrapViewsLimit();
         this._isInMeasure = false;
@@ -291,7 +314,8 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
         let {width, height} = this._infiniteList.measure();
         this._containerWidth = width;
         this._containerHeight = height;
-        if (!this._collection || this._collection.length === 0) {
+        if (this.length === 0) {
+            console.log('length = 0 layout');
             // detach all views without recycle them.
             for (let i = 0; i < this._viewContainerRef.length; i++) {
                 let child = <EmbeddedViewRef<InfiniteRow>> this._viewContainerRef.get(i);
@@ -305,6 +329,7 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
             this._invalidate = false;
             return;
         }
+        console.log('length != 0 layout');
         this.findPositionInRange();
         for (let i = 0; i < this._viewContainerRef.length; i++) {
             let child = <EmbeddedViewRef<InfiniteRow>> this._viewContainerRef.get(i);
@@ -371,21 +396,65 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
         let firstPositionOffset = scrollY - firstPosition * this._infiniteList.rowHeight;
         let lastPosition = Math.ceil((this._containerHeight + firstPositionOffset) / this._infiniteList.rowHeight) + firstPosition;
         this._firstItemPosition = Math.max(firstPosition - 1, 0);
-        this._lastItemPosition = Math.min(lastPosition + 1, this._collection.length - 1);
+        this._lastItemPosition = Math.min(lastPosition + 1, this.length - 1);
     }
 
     private getView(position: number): ViewRef {
-        let view = this._recycler.getView(position);
+        let bucketIndex = -1;
+        if (this.buckets.length > 0) {
+            bucketIndex = this.findBucketIndexByPosition(position);
+        }
+        if (bucketIndex > -1) {
+            const bucket = this.buckets[bucketIndex];
+            if (!bucket.filled) {
+                this.loadBucket(bucketIndex);
+            }
+        }
         let item = this._collection[position];
-        let count = this._collection.length;
+        const isInitialized = !!item;
+        let count = this.length;
+        let view = this._recycler.getView(position);
         if (!view) {
-            view = this._template.createEmbeddedView(new InfiniteRow(item, position, count));
+            view = this._template.createEmbeddedView(new InfiniteRow(item || {}, position, count, isInitialized));
         } else {
-            (view as EmbeddedViewRef<InfiniteRow>).context.$implicit = item;
+            (view as EmbeddedViewRef<InfiniteRow>).context.$implicit = item || {};
             (view as EmbeddedViewRef<InfiniteRow>).context.index = position;
             (view as EmbeddedViewRef<InfiniteRow>).context.count = count;
+            (view as EmbeddedViewRef<InfiniteRow>).context.isInitialized = isInitialized;
         }
         return view;
+    }
+
+    private findBucketIndexByPosition(position: number): number {
+        for (let i = 0; i < this.buckets.length; i++) {
+            let bucket = this.buckets[i];
+            if (bucket.start <= position && position <= bucket.end) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private loadBucket(bucketIndex: number): void {
+        if (this.buckets.length === 0) {
+            return;
+        }
+        const bucket = this.buckets[bucketIndex];
+        if (!bucket || bucket.fetching) {
+            return;
+        }
+        bucket.fetching = true;
+        this._bucketsStub.loadBucket(bucketIndex)
+            .then((bucketData: Iterable<any>) => {
+                bucket.fetching = false;
+                let i = 0;
+                for (let item of bucketData) {
+                    this._collection[bucket.start + i] = item;
+                    i++;
+                }
+                bucket.filled = true;
+                this.requestLayout();
+            });
     }
 }
 

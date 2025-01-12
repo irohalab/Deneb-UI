@@ -1,6 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { InfiniteService } from './infinite.service';
+import {
+    InfiniteDataBucket,
+    InfiniteDataBucketsStub
+} from '../../../../irohalab/deneb-ui/src/infinite-list/infinite-data-collection';
+import { lastValueFrom } from 'rxjs';
 
-const MOCK_DATA = require('../../MOCK_DATA.json');
+// const MOCK_DATA = require('../../MOCK_DATA.json');
 
 @Component({
     selector: 'infinite-list-demo',
@@ -11,13 +17,16 @@ const MOCK_DATA = require('../../MOCK_DATA.json');
             height: 100%;
             position: relative;
             background-color: #f0f0f0;
+            display: flex;
+            flex-direction: row;
         }
         infinite-list {
             width: 600px;
             height: 100%;
             display: block;
         }
-    `]
+    `],
+    providers: [InfiniteService]
 })
 export class InfiniteListDemo implements OnInit {
 
@@ -25,26 +34,23 @@ export class InfiniteListDemo implements OnInit {
 
     newPosition = 0;
 
+    bucketsStub: InfiniteDataBucketsStub;
+    scrollPosition: number = 0;
+
+    constructor(private infiniteService: InfiniteService) {
+    }
+
     onScrollPositionChange(p: number) {
-        console.log(p);
+        this.scrollPosition = p;
     }
 
     ngOnInit(): void {
+        this.bucketsStub = new InfiniteDataBucketsStub(this.infiniteService.buckets, this, this.onLoadBucket);
+        // this.onLoadBucket(0);
+        this.collection = [];
+    }
 
-        this.newPosition = 5000;
-
-        setTimeout(() => {
-            this.collection = MOCK_DATA;
-        }, 3000);
-
-        // setTimeout(() => {
-        //     this.collection = MOCK_DATA.filter(item => item.id % 2 === 0);
-        //     // console.log('current collection', this.collection);
-        // }, 5000);
-        //
-        // setTimeout(() => {
-        //     this.collection = MOCK_DATA.filter(item => true);
-        //     // console.log('current collection', this.collection);
-        // }, 7000);
+    onLoadBucket(bucketIndex: number): Promise<Iterable<any>> {
+        return this.infiniteService.getBucketData(bucketIndex);
     }
 }

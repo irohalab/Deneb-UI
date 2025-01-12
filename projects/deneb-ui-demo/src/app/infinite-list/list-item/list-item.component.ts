@@ -43,6 +43,13 @@ import { InfiniteList, SCROLL_STATE } from '../../../../../irohalab/deneb-ui/src
             padding: 0.5rem;
             background-color: #eaeaea;
         }
+        .state-label {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 0.5rem;
+            background-color: #eaeaea;
+        }
     `]
 })
 export class ListItemExample implements OnDestroy {
@@ -50,11 +57,15 @@ export class ListItemExample implements OnDestroy {
 
     @Input() index: number;
 
+    @Input() isInit: boolean;
+
+    state: string;
+
     private _subscription = new Subscription();
 
     constructor(private _infiniteList: InfiniteList) {
         this._subscription.add(this._infiniteList.scrollStateChange.subscribe((state: SCROLL_STATE) => {
-            console.log('state changed: ', state);
+            this.state = SCROLL_STATE[state];
         }));
     }
 

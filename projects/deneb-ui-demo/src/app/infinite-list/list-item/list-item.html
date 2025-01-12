@@ -1,11 +1,23 @@
 <div class="list-item-example">
-    <div class="list-item-wrapper">
+    <div class="list-item-wrapper" *ngIf="isInit">
         <div class="image">
             <img [src]="item.image" alt="image">
         </div>
         <div class="content">
             {{item.content}}
         </div>
+        <div class="state-label">{{state}}</div>
+        <div class="index-label">{{index}}</div>
+    </div>
+    <div class="list-item-wrapper" *ngIf="!isInit">
+        <div class="ui placeholder">
+            <div class="paragraph">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+        <div class="state-label">{{state}}</div>
         <div class="index-label">{{index}}</div>
     </div>
 </div>

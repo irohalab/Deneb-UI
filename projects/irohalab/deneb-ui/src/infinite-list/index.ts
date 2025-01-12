@@ -19,3 +19,4 @@ export class UIInfiniteListModule {
 
 export * from './infinite-for-of';
 export * from './infinite-list';
+export * from './infinite-data-collection';
