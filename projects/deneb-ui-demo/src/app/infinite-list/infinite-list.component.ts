@@ -1,10 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InfiniteService } from './infinite.service';
-import {
-    InfiniteDataBucket,
-    InfiniteDataBucketsStub
-} from '../../../../irohalab/deneb-ui/src/infinite-list/infinite-data-collection';
-import { lastValueFrom } from 'rxjs';
+import { InfiniteDataBucketsStub } from '../../../../irohalab/deneb-ui/src';
 
 // const MOCK_DATA = require('../../MOCK_DATA.json');
 
@@ -37,6 +33,8 @@ export class InfiniteListDemo implements OnInit {
     bucketsStub: InfiniteDataBucketsStub;
     scrollPosition: number = 0;
 
+    bucketsStubIdx = 0;
+
     constructor(private infiniteService: InfiniteService) {
     }
 
@@ -46,11 +44,25 @@ export class InfiniteListDemo implements OnInit {
 
     ngOnInit(): void {
         this.bucketsStub = new InfiniteDataBucketsStub(this.infiniteService.buckets, this, this.onLoadBucket);
-        // this.onLoadBucket(0);
         this.collection = [];
     }
 
     onLoadBucket(bucketIndex: number): Promise<Iterable<any>> {
         return this.infiniteService.getBucketData(bucketIndex);
+    }
+
+    onLoadBucket2(bucketIndex: number): Promise<Iterable<any>> {
+        return this.infiniteService.getBucket2Data(bucketIndex);
+    }
+
+    switchBucket() {
+        if (this.bucketsStubIdx === 0) {
+            this.bucketsStubIdx = 1;
+            this.bucketsStub = new InfiniteDataBucketsStub(this.infiniteService.buckets2, this, this.onLoadBucket2);
+        } else {
+            this.bucketsStubIdx = 0;
+            this.bucketsStub = new InfiniteDataBucketsStub(this.infiniteService.buckets, this, this.onLoadBucket);
+        }
+        this.collection = [];
     }
 }
