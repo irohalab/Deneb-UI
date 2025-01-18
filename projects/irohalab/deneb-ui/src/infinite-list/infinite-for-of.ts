@@ -168,6 +168,10 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
         this._bucketsStub = stub;
     }
 
+    get infiniteForWithBucket(): InfiniteDataBucketsStub {
+        return this._bucketsStub;
+    }
+
     @Input()
     set infiniteForTemplate(value: TemplateRef<InfiniteRow>) {
         if (value) {
@@ -183,7 +187,7 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
         if (this.buckets.length === 0) {
             return this._collection ? this._collection.length : 0;
         } else {
-            return this.buckets[this.buckets.length - 1].end + 1;
+            return this.buckets[this.buckets.length - 1].end + 1 - this.buckets[0].start;
         }
     }
 
@@ -194,6 +198,14 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        if ('infiniteForWithBucket' in changes && this._differ) {
+            const currentValue = changes['infiniteForWithBucket'].currentValue;
+            const previousValue = changes['infiniteForWithBucket'].previousValue;
+            if (currentValue !== previousValue && previousValue && !this._differ.diff(this.infiniteForOf)) {
+                this._collection = [];
+                this.requestMeasure();
+            }
+        }
         if ('infiniteForOf' in changes) {
             // React on infiniteForOf only once all inputs have been initialized
             const value = changes['infiniteForOf'].currentValue;
@@ -218,21 +230,17 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
 
     private applyChanges(changes: IterableChanges<T>) {
         let isMeasurementRequired = false;
-        console.log(changes);
         changes.forEachOperation((item: IterableChangeRecord<any>, adjustedPreviousIndex: number, currentIndex: number) => {
             if (item.previousIndex == null) {
                 // new item
-                // console.log('new item', item, adjustedPreviousIndex, currentIndex);
                 isMeasurementRequired = true;
                 this._collection.splice(currentIndex, 0, item.item);
             } else if (currentIndex == null) {
                 // remove item
-                // console.log('remove item', item, adjustedPreviousIndex, currentIndex);
                 isMeasurementRequired = true;
                 this._collection.splice(adjustedPreviousIndex, 1);
             } else {
                 // move item
-                // console.log('move item', item, adjustedPreviousIndex, currentIndex);
                 this._collection.splice(currentIndex, 0, this._collection.splice(adjustedPreviousIndex, 1)[0]);
             }
         });
@@ -264,7 +272,6 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
                 return width !== 0 && height !== 0;
             })).subscribe(
             ([width, height]) => {
-                console.log('sizeChange: ', width, height);
                 this._containerWidth = width;
                 this._containerHeight = height;
                 this.requestMeasure();
@@ -289,7 +296,6 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
     }
 
     private requestLayout() {
-        // console.log('requestLayout', this._infiniteList.rowHeight, this._containerHeight, this._collection.length);
         if (!this._isInMeasure && this._infiniteList.rowHeight) {
             this.layout();
         }
@@ -309,13 +315,11 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
         if (this._isInLayout) {
             return;
         }
-        // console.log('on layout');
         this._isInLayout = true;
         let {width, height} = this._infiniteList.measure();
         this._containerWidth = width;
         this._containerHeight = height;
         if (this.length === 0) {
-            console.log('length = 0 layout');
             // detach all views without recycle them.
             for (let i = 0; i < this._viewContainerRef.length; i++) {
                 let child = <EmbeddedViewRef<InfiniteRow>> this._viewContainerRef.get(i);
@@ -329,7 +333,6 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
             this._invalidate = false;
             return;
         }
-        console.log('length != 0 layout');
         this.findPositionInRange();
         for (let i = 0; i < this._viewContainerRef.length; i++) {
             let child = <EmbeddedViewRef<InfiniteRow>> this._viewContainerRef.get(i);
@@ -426,9 +429,10 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
     }
 
     private findBucketIndexByPosition(position: number): number {
+        const offset = position + this.buckets[0].start;
         for (let i = 0; i < this.buckets.length; i++) {
             let bucket = this.buckets[i];
-            if (bucket.start <= position && position <= bucket.end) {
+            if (bucket.start <= offset && offset <= bucket.end) {
                 return i;
             }
         }
@@ -448,8 +452,10 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
             .then((bucketData: Iterable<any>) => {
                 bucket.fetching = false;
                 let i = 0;
+                let firstStart = this.buckets[0].start;
                 for (let item of bucketData) {
-                    this._collection[bucket.start + i] = item;
+                    let offset = bucket.start - firstStart + i
+                    this._collection[offset] = item;
                     i++;
                 }
                 bucket.filled = true;
