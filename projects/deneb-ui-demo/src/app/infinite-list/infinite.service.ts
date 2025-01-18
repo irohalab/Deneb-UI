@@ -25,7 +25,7 @@ export class InfiniteService {
         }
 
         this.buckets2 = [];
-        const length2 = MOCK_DATA.length / 2;
+        const length2 = 2;
         const bucketCount2 = Math.ceil( length2 / 20);
         let start = length2;
         for (let i = 0; i < bucketCount2; i++) {
