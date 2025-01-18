@@ -202,6 +202,11 @@ export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
             const currentValue = changes['infiniteForWithBucket'].currentValue;
             const previousValue = changes['infiniteForWithBucket'].previousValue;
             if (currentValue !== previousValue && previousValue && !this._differ.diff(this.infiniteForOf)) {
+                // clean state of buckets
+                this.buckets.forEach((bucket: InfiniteDataBucket) => {
+                    bucket.fetching = false;
+                    bucket.filled = false;
+                });
                 this._collection = [];
                 this.requestMeasure();
             }
