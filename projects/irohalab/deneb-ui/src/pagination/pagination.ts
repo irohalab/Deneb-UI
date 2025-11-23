@@ -29,7 +29,8 @@ export interface PageNumber {
         .pagination-container.ui.pagination.menu.inverted {
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-    `]
+    `],
+    standalone: false
 })
 export class UIPagination implements OnInit, OnDestroy {
     private _subscription = new Subscription();

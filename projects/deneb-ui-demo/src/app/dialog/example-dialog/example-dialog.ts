@@ -36,7 +36,8 @@ import { Subscription } from 'rxjs';
             justify-content: space-around;
             align-items: center;
         }
-    `]
+    `],
+    standalone: false
 })
 export class ExampleDialog implements OnInit, OnDestroy {
     private _subscription = new Subscription();

@@ -23,7 +23,8 @@ import { UIPopover } from '../../../../irohalab/deneb-ui/src';
             position: relative;
         }
 
-    `]
+    `],
+    standalone: false
 })
 export class PopoverComponent {
 

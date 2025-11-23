@@ -5,7 +5,8 @@ import { UIPopoverRef } from './popover-ref';
 import Popper from 'popper.js';
 
 @Directive({
-    selector: '[ui-popover]'
+    selector: '[ui-popover]',
+    standalone: false
 })
 export class UIPopoverDirective implements OnInit, OnDestroy {
     private _subscription = new Subscription();

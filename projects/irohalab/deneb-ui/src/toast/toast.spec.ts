@@ -70,13 +70,13 @@ describe('UIToast', () => {
     template: '<div class="toast-test">{{message}}</div>',
     animations: [
         trigger('flyIn', [
-            state('in', style({transform: 'translateX(0)'})),
+            state('in', style({ transform: 'translateX(0)' })),
             transition('void => *', [
-                style({transform: 'translateX(-100%)'}),
+                style({ transform: 'translateX(-100%)' }),
                 animate(300)
             ]),
             transition('* => void', [
-                animate(300, style({transform: 'translateX(100%)'}))
+                animate(300, style({ transform: 'translateX(100%)' }))
             ])
         ])
     ],
@@ -90,7 +90,8 @@ describe('UIToast', () => {
                 display: block;            
             }
         `
-    ]
+    ],
+    standalone: false
 })
 class TestToastComponent implements UIToastAnimation {
     @Input() message: string;

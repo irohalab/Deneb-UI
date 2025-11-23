@@ -96,7 +96,8 @@ export class InfiniteRow {
 }
 
 @Directive({
-    selector: '[infiniteFor][infiniteForOf]'
+    selector: '[infiniteFor][infiniteForOf]',
+    standalone: false
 })
 export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
 

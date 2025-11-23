@@ -19,7 +19,8 @@ import { DARK_THEME, DarkThemeService } from '../../../../irohalab/deneb-ui/src'
                 color: #ffffff;
             }
         `
-    ]
+    ],
+    standalone: false
 })
 export class TimelineMeterExample implements OnInit, OnDestroy {
     private _subscription = new Subscription();

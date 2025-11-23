@@ -22,7 +22,8 @@ import { InfiniteDataBucketsStub } from '../../../../irohalab/deneb-ui/src';
             display: block;
         }
     `],
-    providers: [InfiniteService]
+    providers: [InfiniteService],
+    standalone: false
 })
 export class InfiniteListDemo implements OnInit {
 

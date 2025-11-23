@@ -8,9 +8,9 @@ describe('InfiniteList', () => {
     const rowHeight = 40;
     let fixture: ComponentFixture<any>;
 
-    function getComponent(): TestComponent {
-        return fixture.componentInstance;
-    }
+    // function getComponent(): TestComponent {
+    //     return fixture.componentInstance;
+    // }
 
     afterEach(() => {
         fixture = null;
@@ -78,7 +78,8 @@ describe('InfiniteList', () => {
             width: 300px;
             height: 300px;
         }
-    `]
+    `],
+    standalone: false
 })
 class TestComponent {
     collection: any[];

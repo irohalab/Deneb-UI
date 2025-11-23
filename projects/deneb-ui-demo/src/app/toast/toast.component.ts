@@ -32,6 +32,7 @@ const dummy_text = [
 @Component({
     selector: 'toast-demo',
     templateUrl: 'toast.html',
+    standalone: false
 })
 export class ToastDemo implements OnInit {
 

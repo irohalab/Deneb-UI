@@ -56,7 +56,8 @@ export const DEFAULT_HIDDEN_OPACITY = 0.01;
         '[style.paddingBottom]': 'hostPaddingBottom',
         '[style.background]': 'background',
         ngSkipHydration: 'true'
-    }
+    },
+    standalone: false
 })
 export class UIResponsiveImageWrapper {
 

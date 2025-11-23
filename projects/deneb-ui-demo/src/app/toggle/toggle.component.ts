@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
             background: #000;
             color: #fff;
         }
-    `]
+    `],
+    standalone: false
 })
 export class ToggleDemo {
     value1 = true;

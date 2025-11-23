@@ -50,7 +50,8 @@ import { InfiniteList, SCROLL_STATE } from '../../../../../irohalab/deneb-ui/src
             padding: 0.5rem;
             background-color: #eaeaea;
         }
-    `]
+    `],
+    standalone: false
 })
 export class ListItemExample implements OnDestroy {
     @Input() item: any;

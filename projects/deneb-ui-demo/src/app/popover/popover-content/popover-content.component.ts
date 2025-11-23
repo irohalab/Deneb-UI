@@ -11,7 +11,8 @@ import { UIPopoverContent, UIPopoverRef } from '../../../../../irohalab/deneb-ui
             width: 100px;
             height: 100px;
         }
-    `]
+    `],
+    standalone: false
 })
 export class PopoverContentComponent extends UIPopoverContent {
     constructor(popoverRef: UIPopoverRef<PopoverContentComponent>) {
