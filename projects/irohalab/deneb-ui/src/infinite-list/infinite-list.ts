@@ -3,7 +3,7 @@ import {fromEvent as observableFromEvent,  BehaviorSubject, Observable, Subscrip
 
 import {debounceTime, tap, skip, map, filter} from 'rxjs/operators';
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Optional, Output, ViewChild } from '@angular/core';
-import { UITimeLineMeter } from '../timeline-meter/timeline-meter';
+import { UITimeLineMeter } from '../timeline-meter';
 
 export const SCROLL_STOP_TIME_THRESHOLD = 200; // in milliseconds
 
@@ -12,7 +12,8 @@ const INVALID_POSITION = -1;
 @Component({
     selector: 'infinite-list',
     templateUrl: 'infinite-list.html',
-    styleUrls: ['infinite-list.less']
+    styleUrls: ['infinite-list.less'],
+    standalone: false
 })
 export class InfiniteList implements AfterViewInit, OnDestroy {
     private _holderHeight: number;

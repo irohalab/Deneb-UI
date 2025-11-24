@@ -1,17 +1,17 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import {UIInfiniteListModule} from '../infinite-list/index';
-import {UITimelineMeterModule} from './index';
-import {By} from '@angular/platform-browser';
+import { UIInfiniteListModule } from '../infinite-list';
+import { UITimelineMeterModule } from './index';
+import { By } from '@angular/platform-browser';
 import { DarkThemeService } from '../dark-theme.service';
 
 describe('UITimelineMeter', () => {
-    const rowHeight = 40;
+    // const rowHeight = 40;
     let fixture: ComponentFixture<any>;
 
-    function getComponent(): TestComponent {
-        return fixture.componentInstance;
-    }
+    // function getComponent(): TestComponent {
+    //     return fixture.componentInstance;
+    // }
 
     afterEach(() => {
         fixture = null;
@@ -51,11 +51,12 @@ describe('UITimelineMeter', () => {
             width: 200px;
             height: 400px;
         }
-        .demo-card {
-            width: 100%;
-            font-size: 16px;
-        }
-    `]
+        /*.demo-card {*/
+        /*    width: 100%;*/
+        /*    font-size: 16px;*/
+        /*}*/
+    `],
+    standalone: false
 })
 class TestComponent {
     collection: any[];

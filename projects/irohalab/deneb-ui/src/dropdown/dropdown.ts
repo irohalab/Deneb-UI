@@ -10,7 +10,8 @@ import { isPlatformServer } from '@angular/common';
     host: {
         '[class.active]': 'menuOpen',
         '[class.visible]': 'menuOpen'
-    }
+    },
+    standalone: false
 })
 export class UIDropdown implements OnInit, OnDestroy {
 

@@ -40,7 +40,8 @@ describe('UIDialog', () => {
 
 @Component({
     selector: 'example-dialog',
-    template: '<div class="dialog-content"><button type="button" (click)="dialogRef.close()"></button></div>'
+    template: '<div class="dialog-content"><button type="button" (click)="dialogRef.close()"></button></div>',
+    standalone: false
 })
 class ExampleDialog {
     constructor(public dialogRef: UIDialogRef<ExampleDialog>) {}

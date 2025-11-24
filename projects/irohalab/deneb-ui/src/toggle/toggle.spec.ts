@@ -1,18 +1,11 @@
-import {
-    ComponentFixture,
-    TestBed,
-    fakeAsync,
-    tick,
-    flushMicrotasks,
-    waitForAsync
-} from '@angular/core/testing';
-import { click } from '../test-helper';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { UIToggleModule } from './index';
-import { FormsModule, NgModel } from '@angular/forms';
-import { Component, ContentChild, DebugElement, ElementRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Component, ViewChild } from '@angular/core';
 import { UIToggle } from './toggle';
 import { By } from '@angular/platform-browser';
 import { DarkThemeService } from '../dark-theme.service';
+
 describe('UIToggle', () => {
 
     let fixture: ComponentFixture<any>;
@@ -71,7 +64,8 @@ describe('UIToggle', () => {
     template: `
         <form>
             <ui-toggle [(ngModel)]="value" name="toggle1" (change)="onChange()"></ui-toggle>
-        </form>`
+        </form>`,
+    standalone: false
 })
 class NgModelBasic {
     value: boolean;

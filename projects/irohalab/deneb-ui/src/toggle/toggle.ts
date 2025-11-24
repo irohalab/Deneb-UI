@@ -23,7 +23,8 @@ export const UI_TOGGLE_VALUE_ACCESSOR: ExistingProvider = {
     selector: 'ui-toggle',
     templateUrl: './toggle.html',
     styleUrls: ['./toggle.less'],
-    providers: [UI_TOGGLE_VALUE_ACCESSOR]
+    providers: [UI_TOGGLE_VALUE_ACCESSOR],
+    standalone: false
 })
 export class UIToggle implements ControlValueAccessor, OnInit, OnDestroy {
     private _subscription = new Subscription();

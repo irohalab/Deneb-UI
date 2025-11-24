@@ -3,11 +3,11 @@ import {fromEvent as observableFromEvent, BehaviorSubject, Observable, Subscript
 
 import {debounceTime, tap, takeUntil, map, mergeMap, filter} from 'rxjs/operators';
 import {
-    AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChanges,
+    AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges,
     ViewChild
 } from '@angular/core';
 import {isInRect} from '../core/helpers';
-import {SCROLL_STATE, SCROLL_STOP_TIME_THRESHOLD} from '../infinite-list/infinite-list';
+import {SCROLL_STATE, SCROLL_STOP_TIME_THRESHOLD} from '../infinite-list';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 
 export class RowItem {
@@ -53,7 +53,8 @@ export const TOOLTIP_FADE_TIME = 800;
 @Component({
     selector: 'ui-timeline-meter',
     templateUrl: 'timeline-meter.html',
-    styleUrls: ['timeline-meter.less']
+    styleUrls: ['timeline-meter.less'],
+    standalone: false
 })
 export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChanges {
     private _subscription = new Subscription();
@@ -342,7 +343,7 @@ export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChan
                 }),
                 debounceTime(TOOLTIP_FADE_TIME),)
                 .subscribe(
-                    (velocity) => {
+                    () => {
                         if (this.showTooltip) {
                             this.showTooltip = false;
                         }
@@ -533,8 +534,6 @@ export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChan
      *  every row has some height. this is usually happened when you use InfiniteList with this component.
      * - rowHeightList is set by content child, this is the case when you use ScrollableContent component with this component.
      *  In this case, _itemList has already built.
-     * @param rowHeight
-     * @param timestampList
      */
     private buildMeter() {
         if (this._isBuilding) {

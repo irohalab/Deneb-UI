@@ -17,13 +17,13 @@ import { Subscription } from 'rxjs';
     template: '<div class="toast-content ui black message">{{message}}</div>',
     animations: [
         trigger('fade', [
-            state('in', style({opacity: 1})),
+            state('in', style({ opacity: 1 })),
             transition('void => *', [
-                style({opacity: 0}),
+                style({ opacity: 0 }),
                 animate(300)
             ]),
             transition('* => void', [
-                animate(300, style({opacity: 0}))
+                animate(300, style({ opacity: 0 }))
             ])
         ])
     ],
@@ -32,7 +32,8 @@ import { Subscription } from 'rxjs';
         '(@fade.done)': 'uiLeaveAnimationDone($event)'
     },
     styleUrls: ['toast.less'],
-    encapsulation: ViewEncapsulation.Emulated
+    encapsulation: ViewEncapsulation.Emulated,
+    standalone: false
 })
 export class UIToastComponent implements OnInit, OnDestroy, UIToastAnimation {
     private _subscription = new Subscription();

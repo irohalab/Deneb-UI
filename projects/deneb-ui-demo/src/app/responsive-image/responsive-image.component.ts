@@ -11,8 +11,9 @@ import {
     styleUrl: './responsive-image.component.less',
     providers: [
         // {provide: SRC_GENERATOR_SERVICE, useClass: ResponsiveGenerateSrcService},
-        {provide: SRC_GENERATOR_SERVICE, useClass: RoundGenerateSrcService}
-    ]
+        { provide: SRC_GENERATOR_SERVICE, useClass: RoundGenerateSrcService }
+    ],
+    standalone: false
 })
 export class ResponsiveImageComponent {
 

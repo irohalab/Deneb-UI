@@ -1,5 +1,5 @@
 
-import {fromEvent as observableFromEvent, Observable, Subscription} from 'rxjs';
+import {fromEvent as observableFromEvent, Subscription} from 'rxjs';
 
 import {map} from 'rxjs/operators';
 import {AfterViewInit, Component, DoCheck, ElementRef, OnDestroy, ViewChild} from '@angular/core';
@@ -10,7 +10,8 @@ import {UITimeLineMeter} from './timeline-meter';
     template: `
         <div class="scrollable-content" #scrollableContent>
         </div>
-    `
+    `,
+    standalone: false
 })
 export class UIScrollableContent implements AfterViewInit, OnDestroy, DoCheck {
 

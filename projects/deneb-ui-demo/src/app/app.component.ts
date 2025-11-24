@@ -21,7 +21,8 @@ import { DARK_THEME, DarkThemeService, LIGHT_THEME } from '../../../irohalab/den
                 background-color: #1b1c1d;
             }
         }
-    `]
+    `],
+    standalone: false
 })
 export class App {
     private _darkTheme: boolean;

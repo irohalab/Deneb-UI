@@ -46,12 +46,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/deneb-ui-demo",
+            "outputPath": {
+              "base": "dist/deneb-ui-demo"
+            },
             "index": "projects/deneb-ui-demo/src/index.html",
-            "main": "projects/deneb-ui-demo/src/main.ts",
-            "polyfills": "projects/deneb-ui-demo/src/polyfills.ts",
+            "polyfills": [
+              "projects/deneb-ui-demo/src/polyfills.ts"
+            ],
             "tsConfig": "projects/deneb-ui-demo/tsconfig.app.json",
             "inlineStyleLanguage": "less",
             "assets": [
@@ -62,7 +65,8 @@
               "projects/deneb-ui-demo/src/styles.less",
               "node_modules/@irohalab/semantic-ui/semantic.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/deneb-ui-demo/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -87,9 +91,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true

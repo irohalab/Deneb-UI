@@ -1,6 +1,6 @@
 {
   "name": "deneb-ui",
-  "version": "4.5.2",
+  "version": "4.6.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project Deneb-UI-Demo",
@@ -11,22 +11,22 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^17.1.2",
-    "@angular/common": "^17.1.2",
-    "@angular/compiler": "^17.1.2",
-    "@angular/core": "^17.1.2",
-    "@angular/forms": "^17.1.2",
-    "@angular/platform-browser": "^17.1.2",
-    "@angular/platform-browser-dynamic": "^17.1.2",
-    "@angular/router": "^17.1.2",
+    "@angular/animations": "^19.2.15",
+    "@angular/common": "^19.2.15",
+    "@angular/compiler": "^19.2.15",
+    "@angular/core": "^19.2.15",
+    "@angular/forms": "^19.2.15",
+    "@angular/platform-browser": "^19.2.15",
+    "@angular/platform-browser-dynamic": "^19.2.15",
+    "@angular/router": "^19.2.15",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.1.2",
-    "@angular/cli": "~17.1.2",
-    "@angular/compiler-cli": "^17.1.2",
+    "@angular-devkit/build-angular": "^19.2.19",
+    "@angular/cli": "~19.2.19",
+    "@angular/compiler-cli": "^19.2.15",
     "@irohalab/semantic-ui": "^2.4.1",
     "@types/jasmine": "~4.0.0",
     "@types/node": "^20.11.16",
@@ -38,9 +38,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "karma-phantomjs-launcher": "^1.0.4",
-    "ng-packagr": "^17.1.2",
+    "ng-packagr": "^19.2.2",
     "popper.js": "^1.12.9",
     "puppeteer": "^18.0.5",
-    "typescript": "~5.3.3"
+    "typescript": "~5.5.4"
   }
 }

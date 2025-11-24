@@ -38,7 +38,8 @@ describe('UIPopover', () => {
 
 @Component({
     selector: 'test-cmp',
-    template: ''
+    template: '',
+    standalone: false
 })
 class TestComponent {
 }

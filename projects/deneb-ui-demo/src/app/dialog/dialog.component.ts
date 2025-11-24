@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ExampleDialog } from './example-dialog/example-dialog';
 import { UIDialog } from '../../../../irohalab/deneb-ui/src';
@@ -18,7 +18,8 @@ import { UIDialog } from '../../../../irohalab/deneb-ui/src';
             background: #aaa;
             position: relative;
         }
-    `]
+    `],
+    standalone: false
 })
 export class Dialog implements OnDestroy {
     private _subscription = new Subscription();

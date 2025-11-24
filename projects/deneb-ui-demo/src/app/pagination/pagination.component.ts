@@ -5,7 +5,8 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
     selector: 'pagination-demo',
-    templateUrl: './pagination.html'
+    templateUrl: './pagination.html',
+    standalone: false
 })
 export class PaginationDemo implements OnInit {
     currentPage: number;

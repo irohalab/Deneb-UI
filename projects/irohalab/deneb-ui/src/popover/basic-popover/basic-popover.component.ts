@@ -12,7 +12,8 @@ import { DARK_THEME, DarkThemeService } from '../../dark-theme.service';
 @Component({
     selector: 'ui-basic-popover',
     templateUrl: './basic-popover.html',
-    styleUrls: ['./basic-popover.less']
+    styleUrls: ['./basic-popover.less'],
+    standalone: false
 })
 export class BasicPopoverComponent extends UIPopoverContent implements AfterViewInit, OnInit, OnDestroy {
     private _subscription = new Subscription();

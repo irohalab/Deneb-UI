@@ -8,7 +8,8 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'dropdown-demo',
-    templateUrl: './dropdown.html'
+    templateUrl: './dropdown.html',
+    standalone: false
 })
 export class DropdownDemo implements AfterViewInit, OnDestroy {
     private _subscription = new Subscription();

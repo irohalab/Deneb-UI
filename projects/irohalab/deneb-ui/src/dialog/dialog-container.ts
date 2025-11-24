@@ -21,17 +21,18 @@ import { Subscription } from 'rxjs';
     encapsulation: ViewEncapsulation.None,
     animations: [
         trigger('backdropState', [
-            state('active', style({opacity: '1'})),
+            state('active', style({ opacity: '1' })),
             transition('void => active', [
-                style({opacity: '0'}),
+                style({ opacity: '0' }),
                 animate(200)
             ]),
             transition('active => void', [
-                style({opacity: '0'}),
+                style({ opacity: '0' }),
                 animate(200)
             ])
         ])
-    ]
+    ],
+    standalone: false
 })
 export class UIDialogContainer implements AfterViewInit, OnInit, OnDestroy {
     private _subscription = new Subscription();

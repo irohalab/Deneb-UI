@@ -1,5 +1,5 @@
 
-import {fromEvent as observableFromEvent, Observable, Subscription} from 'rxjs';
+import {fromEvent as observableFromEvent, Subscription} from 'rxjs';
 
 import {takeUntil, mergeMap, tap, filter, debounceTime} from 'rxjs/operators';
 import {
@@ -14,7 +14,8 @@ export const SCROLL_DISTANCE = 10;
 @Component({
     selector: 'ui-scrollbar',
     templateUrl: 'scrollbar.html',
-    styleUrls: ['scrollbar.less']
+    styleUrls: ['scrollbar.less'],
+    standalone: false
 })
 export class UIScrollbar implements AfterViewInit, OnChanges, OnDestroy, OnInit {
 
