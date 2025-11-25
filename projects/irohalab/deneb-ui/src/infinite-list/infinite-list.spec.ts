@@ -62,7 +62,7 @@ describe('InfiniteList', () => {
         fixture.detectChanges();
         let rowElements = el.querySelectorAll('.row-element');
         expect(rowElements.length).toEqual(lastPosition - firstPosition + 1);
-        // console.log('scrollTop', el.scrollTop, 'rows ', rowElements);
+        console.log('scrollTop', el.scrollTop, 'rows ', rowElements);
         expect(rowElements[0].textContent.trim()).toEqual(firstPosition + '');
         expect(rowElements[rowElements.length - 1].textContent.trim()).toEqual(lastPosition + '');
     }));
