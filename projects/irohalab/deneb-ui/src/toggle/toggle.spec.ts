@@ -17,12 +17,9 @@ describe('UIToggle', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [UIToggleModule, FormsModule],
-            declarations: [
-                NgModelBasic
-            ],
-            providers: [DarkThemeService]
-        });
+    imports: [UIToggleModule, FormsModule, NgModelBasic],
+    providers: [DarkThemeService]
+});
 
         TestBed.compileComponents();
     }));
@@ -65,7 +62,7 @@ describe('UIToggle', () => {
         <form>
             <ui-toggle [(ngModel)]="value" name="toggle1" (change)="onChange()"></ui-toggle>
         </form>`,
-    standalone: false
+    imports: [UIToggleModule, FormsModule]
 })
 class NgModelBasic {
     value: boolean;

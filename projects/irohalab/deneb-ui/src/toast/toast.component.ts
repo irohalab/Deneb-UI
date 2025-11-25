@@ -32,8 +32,7 @@ import { Subscription } from 'rxjs';
         '(@fade.done)': 'uiLeaveAnimationDone($event)'
     },
     styleUrls: ['toast.less'],
-    encapsulation: ViewEncapsulation.Emulated,
-    standalone: false
+    encapsulation: ViewEncapsulation.Emulated
 })
 export class UIToastComponent implements OnInit, OnDestroy, UIToastAnimation {
     private _subscription = new Subscription();

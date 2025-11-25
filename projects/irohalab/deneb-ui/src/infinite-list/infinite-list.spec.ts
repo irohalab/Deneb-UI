@@ -18,10 +18,9 @@ describe('InfiniteList', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [UIInfiniteListModule],
-            declarations: [TestComponent],
-            providers: [DarkThemeService]
-        });
+    imports: [UIInfiniteListModule, TestComponent],
+    providers: [DarkThemeService]
+});
     }));
 
     it('should reflect initial elements', waitForAsync(() => {
@@ -63,7 +62,7 @@ describe('InfiniteList', () => {
         fixture.detectChanges();
         let rowElements = el.querySelectorAll('.row-element');
         expect(rowElements.length).toEqual(lastPosition - firstPosition + 1);
-        // console.log('scrollTop', el.scrollTop, 'rows ', rowElements);
+        console.log('scrollTop', el.scrollTop, 'rows ', rowElements);
         expect(rowElements[0].textContent.trim()).toEqual(firstPosition + '');
         expect(rowElements[rowElements.length - 1].textContent.trim()).toEqual(lastPosition + '');
     }));
@@ -79,7 +78,7 @@ describe('InfiniteList', () => {
             height: 300px;
         }
     `],
-    standalone: false
+    imports: [UIInfiniteListModule]
 })
 class TestComponent {
     collection: any[];

@@ -13,6 +13,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {UIDialogConfig} from './dialog';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 import { Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'ui-dialog-container',
@@ -32,7 +33,7 @@ import { Subscription } from 'rxjs';
             ])
         ])
     ],
-    standalone: false
+    imports: [NgClass]
 })
 export class UIDialogContainer implements AfterViewInit, OnInit, OnDestroy {
     private _subscription = new Subscription();

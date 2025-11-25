@@ -3,7 +3,7 @@ import {UIToastComponent} from './toast.component';
 import {UIToast} from './toast';
 
 @NgModule({
-    declarations: [UIToastComponent],
+    imports: [UIToastComponent],
     providers: [UIToast],
     exports: [UIToastComponent]
 })

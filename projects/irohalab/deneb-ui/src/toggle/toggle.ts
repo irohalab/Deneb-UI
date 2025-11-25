@@ -2,6 +2,7 @@ import { Component, Input, ExistingProvider, forwardRef, Output, EventEmitter, O
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
+import { NgClass } from '@angular/common';
 
 let nextId = 0;
 
@@ -24,7 +25,7 @@ export const UI_TOGGLE_VALUE_ACCESSOR: ExistingProvider = {
     templateUrl: './toggle.html',
     styleUrls: ['./toggle.less'],
     providers: [UI_TOGGLE_VALUE_ACCESSOR],
-    standalone: false
+    imports: [NgClass]
 })
 export class UIToggle implements ControlValueAccessor, OnInit, OnDestroy {
     private _subscription = new Subscription();

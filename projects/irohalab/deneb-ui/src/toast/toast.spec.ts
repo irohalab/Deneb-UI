@@ -90,8 +90,7 @@ describe('UIToast', () => {
                 display: block;            
             }
         `
-    ],
-    standalone: false
+    ]
 })
 class TestToastComponent implements UIToastAnimation {
     @Input() message: string;
@@ -106,8 +105,7 @@ class TestToastComponent implements UIToastAnimation {
 const TEST_DIRECTIVES = [TestToastComponent];
 
 @NgModule({
-    declarations: TEST_DIRECTIVES,
-    imports: [UIToastModule],
+    imports: [UIToastModule, ...TEST_DIRECTIVES],
     exports: TEST_DIRECTIVES
 })
 class ToastTestModule {

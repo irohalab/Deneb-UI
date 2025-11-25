@@ -3,11 +3,8 @@ import {InfiniteForOf} from './infinite-for-of';
 import {InfiniteList} from './infinite-list';
 import {CommonModule} from '@angular/common';
 @NgModule({
-    declarations: [
-        InfiniteForOf,
-        InfiniteList
-    ],
-    imports: [CommonModule],
+    imports: [CommonModule, InfiniteForOf,
+        InfiniteList],
     exports: [
         InfiniteForOf,
         InfiniteList

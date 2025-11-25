@@ -40,8 +40,7 @@ describe('UIDialog', () => {
 
 @Component({
     selector: 'example-dialog',
-    template: '<div class="dialog-content"><button type="button" (click)="dialogRef.close()"></button></div>',
-    standalone: false
+    template: '<div class="dialog-content"><button type="button" (click)="dialogRef.close()"></button></div>'
 })
 class ExampleDialog {
     constructor(public dialogRef: UIDialogRef<ExampleDialog>) {}
@@ -52,8 +51,7 @@ const TEST_DIRECTIVES = [
 ];
 
 @NgModule({
-    declarations: TEST_DIRECTIVES,
-    imports: [UIDialogModule],
+    imports: [UIDialogModule, ...TEST_DIRECTIVES],
     exports: TEST_DIRECTIVES
 })
 class DialogTestModule {}

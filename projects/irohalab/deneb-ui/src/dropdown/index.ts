@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {UIDropdown} from './dropdown';
 @NgModule({
-    declarations: [UIDropdown],
+    imports: [UIDropdown],
     exports: [UIDropdown]
 })
 export class UIDropdownModule {

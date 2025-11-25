@@ -95,10 +95,7 @@ export class InfiniteRow {
     }
 }
 
-@Directive({
-    selector: '[infiniteFor][infiniteForOf]',
-    standalone: false
-})
+@Directive({ selector: '[infiniteFor][infiniteForOf]' })
 export class InfiniteForOf<T> implements OnChanges, DoCheck, OnInit, OnDestroy {
 
     private _differ: IterableDiffer<T>;

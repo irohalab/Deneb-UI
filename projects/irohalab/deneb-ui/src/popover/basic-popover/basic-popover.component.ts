@@ -1,5 +1,5 @@
 
-import {fromEvent as observableFromEvent,  Subscription ,  Observable } from 'rxjs';
+import {fromEvent as observableFromEvent,  Subscription } from 'rxjs';
 
 import {skip} from 'rxjs/operators';
 import { AfterViewInit, Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
@@ -7,13 +7,14 @@ import { Popover } from '../register';
 import { UIPopoverRef } from '../popover-ref';
 import { UIPopoverContent } from '../popover-content';
 import { DARK_THEME, DarkThemeService } from '../../dark-theme.service';
+import { NgClass, NgIf } from '@angular/common';
 
 @Popover('ui-basic')
 @Component({
     selector: 'ui-basic-popover',
     templateUrl: './basic-popover.html',
     styleUrls: ['./basic-popover.less'],
-    standalone: false
+    imports: [NgClass, NgIf]
 })
 export class BasicPopoverComponent extends UIPopoverContent implements AfterViewInit, OnInit, OnDestroy {
     private _subscription = new Subscription();

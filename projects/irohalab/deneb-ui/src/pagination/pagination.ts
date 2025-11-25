@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 import { Subscription } from 'rxjs';
+import { NgClass, NgFor } from '@angular/common';
 
 
 export interface PageNumber {
@@ -30,7 +31,7 @@ export interface PageNumber {
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
     `],
-    standalone: false
+    imports: [NgClass, NgFor]
 })
 export class UIPagination implements OnInit, OnDestroy {
     private _subscription = new Subscription();

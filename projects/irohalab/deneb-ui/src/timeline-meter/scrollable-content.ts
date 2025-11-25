@@ -10,8 +10,7 @@ import {UITimeLineMeter} from './timeline-meter';
     template: `
         <div class="scrollable-content" #scrollableContent>
         </div>
-    `,
-    standalone: false
+    `
 })
 export class UIScrollableContent implements AfterViewInit, OnDestroy, DoCheck {
 
