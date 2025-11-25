@@ -18,10 +18,9 @@ describe('UIPopover', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [UIPopoverModule],
-            declarations: [TestComponent],
-            providers: [DarkThemeService]
-        });
+    imports: [UIPopoverModule, TestComponent],
+    providers: [DarkThemeService]
+});
     }));
 
     it('should create component when trigger the directive', () => {
@@ -39,7 +38,7 @@ describe('UIPopover', () => {
 @Component({
     selector: 'test-cmp',
     template: '',
-    standalone: false
+    imports: [UIPopoverModule]
 })
 class TestComponent {
 }

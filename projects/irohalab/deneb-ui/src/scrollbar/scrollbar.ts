@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {isInRect} from '../core/helpers';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
+import { NgClass } from '@angular/common';
 
 export const SCROLL_DISTANCE = 10;
 
@@ -15,7 +16,7 @@ export const SCROLL_DISTANCE = 10;
     selector: 'ui-scrollbar',
     templateUrl: 'scrollbar.html',
     styleUrls: ['scrollbar.less'],
-    standalone: false
+    imports: [NgClass]
 })
 export class UIScrollbar implements AfterViewInit, OnChanges, OnDestroy, OnInit {
 

@@ -3,8 +3,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 @NgModule({
-    declarations: [UIPagination],
-    imports: [CommonModule],
+    imports: [CommonModule, UIPagination],
     exports: [UIPagination]
 })
 export class UIPaginationModule {

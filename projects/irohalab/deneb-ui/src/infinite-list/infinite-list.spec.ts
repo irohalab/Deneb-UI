@@ -18,10 +18,9 @@ describe('InfiniteList', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [UIInfiniteListModule],
-            declarations: [TestComponent],
-            providers: [DarkThemeService]
-        });
+    imports: [UIInfiniteListModule, TestComponent],
+    providers: [DarkThemeService]
+});
     }));
 
     it('should reflect initial elements', waitForAsync(() => {
@@ -79,7 +78,7 @@ describe('InfiniteList', () => {
             height: 300px;
         }
     `],
-    standalone: false
+    imports: [UIInfiniteListModule]
 })
 class TestComponent {
     collection: any[];

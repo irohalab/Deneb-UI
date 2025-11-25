@@ -4,9 +4,8 @@ import {UIDialogContainer} from './dialog-container';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-    declarations: [UIDialogContainer],
     providers: [UIDialog],
-    imports: [CommonModule],
+    imports: [CommonModule, UIDialogContainer],
     exports: [UIDialogContainer]
 })
 export class UIDialogModule {

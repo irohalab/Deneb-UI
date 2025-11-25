@@ -4,7 +4,7 @@ import { UIResponsiveService } from './responsive.service';
 import { UIResponsiveImageWrapper } from './responsive-image-wrapper';
 
 @NgModule({
-    declarations: [UIResponsiveImage, UIResponsiveImageWrapper],
+    imports: [UIResponsiveImage, UIResponsiveImageWrapper],
     providers: [UIResponsiveService],
     exports: [UIResponsiveImage, UIResponsiveImageWrapper]
 })

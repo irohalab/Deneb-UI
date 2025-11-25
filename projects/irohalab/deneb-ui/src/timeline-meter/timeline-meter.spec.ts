@@ -19,10 +19,9 @@ describe('UITimelineMeter', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [UIInfiniteListModule, UITimelineMeterModule],
-            declarations: [TestComponent],
-            providers: [DarkThemeService]
-        });
+    imports: [UIInfiniteListModule, UITimelineMeterModule, TestComponent],
+    providers: [DarkThemeService]
+});
     }));
 
     it('should create a timeline meter', (done) => {
@@ -56,7 +55,7 @@ describe('UITimelineMeter', () => {
         /*    font-size: 16px;*/
         /*}*/
     `],
-    standalone: false
+    imports: [UIInfiniteListModule, UITimelineMeterModule]
 })
 class TestComponent {
     collection: any[];

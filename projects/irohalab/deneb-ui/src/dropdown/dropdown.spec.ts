@@ -18,10 +18,9 @@ describe('UIDropdown', () => {
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [UIDropdownModule],
-            declarations: [TestComponent],
-            providers: [DarkThemeService]
-        });
+    imports: [UIDropdownModule, TestComponent],
+    providers: [DarkThemeService]
+});
     }));
 
     it('should show menu when click dropdown', () => {
@@ -90,7 +89,7 @@ describe('UIDropdown', () => {
 @Component({
     selector: 'test-cmp',
     template: '',
-    standalone: false
+    imports: [UIDropdownModule]
 })
 class TestComponent {
 }
