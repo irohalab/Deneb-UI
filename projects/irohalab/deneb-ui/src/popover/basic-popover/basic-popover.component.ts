@@ -77,7 +77,6 @@ export class BasicPopoverComponent extends UIPopoverContent implements AfterView
     }
 
     ngAfterViewInit(): void {
-        super.ngAfterViewInit();
         if (this.clickToClose) {
             let skipCount = this.triggeredBy === 'click' ? 1: 0;
             this._subscription.add(
