@@ -18,3 +18,4 @@ export * from './popover-ref';
 export * from './popover.directive';
 export * from './register';
 export * from './popover-content';
+export * from './basic-popover/basic-popover.component';
