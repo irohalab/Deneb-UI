@@ -1,15 +1,15 @@
 /**
  * All popover content component should extend this class
  */
-import { AfterViewInit, Directive } from '@angular/core';
+import { afterRender, Directive } from '@angular/core';
 import { UIPopoverRef } from './popover-ref';
 
 @Directive()
-export abstract class UIPopoverContent implements AfterViewInit {
+export abstract class UIPopoverContent{
 
-    protected constructor(protected popoverRef: UIPopoverRef<UIPopoverContent>) {}
-
-    ngAfterViewInit(): void {
-        this.popoverRef.updatePosition();
+    protected constructor(protected popoverRef: UIPopoverRef<UIPopoverContent>) {
+        afterRender(() => {
+            this.popoverRef.updatePosition();
+        });
     }
 }
