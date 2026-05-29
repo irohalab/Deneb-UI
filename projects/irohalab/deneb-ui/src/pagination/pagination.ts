@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 import { Subscription } from 'rxjs';
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 
 export interface PageNumber {
@@ -14,24 +14,26 @@ export interface PageNumber {
     selector: 'ui-pagination',
     template: `
         <div class="ui pagination menu pagination-container" [ngClass]="{inverted: isDarkTheme}">
-            <a class="item page-navigator" [ngClass]="{disabled: currentPage <= 1}" (click)="prevPage()">
-                <i class="angle left icon"></i>
+          <a class="item page-navigator" [ngClass]="{disabled: currentPage <= 1}" (click)="prevPage()">
+            <i class="angle left icon"></i>
+          </a>
+          @for (page of pageNumberList; track page) {
+            <a class="item page-num" [ngClass]="{active: page.active}"
+              (click)="onClickPage(page)">
+              {{page.text}}
             </a>
-            <a class="item page-num" *ngFor="let page of pageNumberList" [ngClass]="{active: page.active}"
-               (click)="onClickPage(page)">
-                {{page.text}}
-            </a>
-            <a class="item page-navigator" [ngClass]="{disabled: currentPage >= totalPages}" (click)="nextPage()">
-                <i class="angle right icon"></i>
-            </a>
+          }
+          <a class="item page-navigator" [ngClass]="{disabled: currentPage >= totalPages}" (click)="nextPage()">
+            <i class="angle right icon"></i>
+          </a>
         </div>
-    `,
+        `,
     styles: [`
         .pagination-container.ui.pagination.menu.inverted {
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
     `],
-    imports: [NgClass, NgFor]
+    imports: [NgClass]
 })
 export class UIPagination implements OnInit, OnDestroy {
     private _subscription = new Subscription();
