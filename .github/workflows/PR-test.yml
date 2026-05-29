@@ -27,3 +27,5 @@ jobs:
       - name: Run Unit test
         run: |
           ng test --project @irohalab/Deneb-UI --no-watch
+        env:
+          CHROME_BIN: /usr/bin/google-chrome-stable
