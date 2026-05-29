@@ -125,7 +125,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "main": "projects/deneb-ui-demo/src/test.ts",
-            "polyfills": "projects/deneb-ui-demo/src/polyfills.ts",
+            "polyfills": ["projects/deneb-ui-demo/src/polyfills.ts"],
             "tsConfig": "projects/deneb-ui-demo/tsconfig.spec.json",
             "karmaConfig": "projects/deneb-ui-demo/karma.conf.js",
             "inlineStyleLanguage": "less",
