@@ -8,6 +8,10 @@ on:
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   #  build:
   #    runs-on: ubuntu-latest
@@ -16,7 +20,7 @@ jobs:
   #      - uses: actions/setup-node@v2
   #        with:
   #          node-version: 16
-  #      - run: yarn install
+  #      - run: npm ci
   #      - run: npm test
   #        env:
   #          AMQP_URL: ${{secrets.AMQP_URL}}
@@ -28,19 +32,18 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
           scope: '@irohalab'
       - name: Install Angular CLI
         run: npm install -g @angular/cli
       - name: Install Dependencies
-        run: yarn install
+        run: npm ci
       - name: Build library
         run: ng build --project @irohalab/Deneb-UI
       - name: Publish npm package
-        run: yarn publish dist/irohalab/deneb-ui
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npm publish --provenance
+        working-directory: dist/irohalab/deneb-ui

@@ -7,14 +7,14 @@ import { Popover } from '../register';
 import { UIPopoverRef } from '../popover-ref';
 import { UIPopoverContent } from '../popover-content';
 import { DARK_THEME, DarkThemeService } from '../../dark-theme.service';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Popover('ui-basic')
 @Component({
     selector: 'ui-basic-popover',
     templateUrl: './basic-popover.html',
     styleUrls: ['./basic-popover.less'],
-    imports: [NgClass, NgIf]
+    imports: [NgClass]
 })
 export class BasicPopoverComponent extends UIPopoverContent implements AfterViewInit, OnInit, OnDestroy {
     private _subscription = new Subscription();

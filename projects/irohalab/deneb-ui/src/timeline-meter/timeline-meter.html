@@ -1,26 +1,36 @@
 <div class="ui-timeline-meter-container" [ngClass]="{'dark-theme': isDarkTheme}" #container>
-    <div class="scrollable-content-wrapper">
-        <ng-content></ng-content>
-    </div>
-    <div class="ui-timeline-meter" #meter [ngClass]="labelSpan">
-        <div class="render-wrapper"
-             [style.top]="toolTipHeight / 2 + 'px'"
-             [style.height]="availableHeight + 'px'" #renderWrapper>
-            <div class="render-entity" *ngFor="let renderEntity of renderEntityList" [style.top]="renderEntity.top">
-                <div class="label" *ngIf="renderEntity.isLabel">{{renderEntity.label}}</div>
-                <div class="marker" *ngIf="!renderEntity.isLabel"></div>
-            </div>
+  <div class="scrollable-content-wrapper">
+    <ng-content></ng-content>
+  </div>
+  <div class="ui-timeline-meter" #meter [ngClass]="labelSpan">
+    <div class="render-wrapper"
+      [style.top]="toolTipHeight / 2 + 'px'"
+      [style.height]="availableHeight + 'px'" #renderWrapper>
+      @for (renderEntity of renderEntityList; track renderEntity) {
+        <div class="render-entity" [style.top]="renderEntity.top">
+          @if (renderEntity.isLabel) {
+            <div class="label">{{renderEntity.label}}</div>
+          }
+          @if (!renderEntity.isLabel) {
+            <div class="marker"></div>
+          }
         </div>
-        <div *ngIf="showTooltip"
-             class="meter-tooltip"
-             [ngClass]="markSpan"
-             [style.transform]="pointedItem?.pos">{{pointedItem?.label}}</div>
-        <div *ngIf="showTooltip"
-             class="float-mark"
-             [style.transform]="floatMarkPos"></div>
+      }
     </div>
-    <ui-scrollbar
-            [contentHeight]="contentHeight"
-            [scrollPosition]="scrollPercentage"
-            (scrollChange)="onScrollbarChange($event)"></ui-scrollbar>
+    @if (showTooltip) {
+      <div
+        class="meter-tooltip"
+        [ngClass]="markSpan"
+      [style.transform]="pointedItem?.pos">{{pointedItem?.label}}</div>
+    }
+    @if (showTooltip) {
+      <div
+        class="float-mark"
+      [style.transform]="floatMarkPos"></div>
+    }
+  </div>
+  <ui-scrollbar
+    [contentHeight]="contentHeight"
+    [scrollPosition]="scrollPercentage"
+  (scrollChange)="onScrollbarChange($event)"></ui-scrollbar>
 </div>

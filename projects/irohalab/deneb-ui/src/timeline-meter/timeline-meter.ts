@@ -9,7 +9,7 @@ import {
 import {isInRect} from '../core/helpers';
 import {SCROLL_STATE, SCROLL_STOP_TIME_THRESHOLD} from '../infinite-list';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { UIScrollbar } from '../scrollbar';
 
 export class RowItem {
@@ -56,7 +56,7 @@ export const TOOLTIP_FADE_TIME = 800;
     selector: 'ui-timeline-meter',
     templateUrl: 'timeline-meter.html',
     styleUrls: ['timeline-meter.less'],
-    imports: [NgClass, NgFor, NgIf, UIScrollbar]
+    imports: [NgClass, UIScrollbar]
 })
 export class UITimeLineMeter implements AfterViewInit, OnInit, OnDestroy, OnChanges {
     private _subscription = new Subscription();

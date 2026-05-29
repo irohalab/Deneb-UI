@@ -1,14 +1,15 @@
-<div class="demo-container" *ngIf="collection">
+@if (collection) {
+  <div class="demo-container">
     <infinite-list [rowHeight]="140" [newScrollPosition]="newPosition" (scrollPosition)="onScrollPositionChange($event)">
-        <list-item-example *infiniteFor="let row of collection; let isInit = isInitialized; let i = index; withBucket: bucketsStub"
-                           [item]="row"
-                           [index]="i"
-                           [isInit]="isInit">
-
-        </list-item-example>
+      <list-item-example *infiniteFor="let row of collection; let isInit = isInitialized; let i = index; withBucket: bucketsStub"
+        [item]="row"
+        [index]="i"
+        [isInit]="isInit">
+      </list-item-example>
     </infinite-list>
     <div class="information-container">
-        <p><strong>scroll position: </strong><span>{{scrollPosition}}</span></p>
-        <p><button class="ui button" (click)="switchBucket()">Switch Buckets</button></p>
+      <p><strong>scroll position: </strong><span>{{scrollPosition}}</span></p>
+      <p><button class="ui button" (click)="switchBucket()">Switch Buckets</button></p>
     </div>
-</div>
+  </div>
+}
