@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input, OnDestroy, inject} from '@angular/core';
 import {Subscription} from 'rxjs';
 import { InfiniteList, SCROLL_STATE } from '../../../../../irohalab/deneb-ui/src';
 @Component({
@@ -50,8 +50,7 @@ import { InfiniteList, SCROLL_STATE } from '../../../../../irohalab/deneb-ui/src
             padding: 0.5rem;
             background-color: #eaeaea;
         }
-    `],
-    standalone: false
+    `]
 })
 export class ListItemExample implements OnDestroy {
     @Input() item: any;
@@ -63,8 +62,9 @@ export class ListItemExample implements OnDestroy {
     state: string;
 
     private _subscription = new Subscription();
+    private _infiniteList = inject(InfiniteList);
 
-    constructor(private _infiniteList: InfiniteList) {
+    constructor() {
         this._subscription.add(this._infiniteList.scrollStateChange.subscribe((state: SCROLL_STATE) => {
             this.state = SCROLL_STATE[state];
         }));

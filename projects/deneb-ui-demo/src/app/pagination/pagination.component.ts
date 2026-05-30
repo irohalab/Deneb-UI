@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { UIPagination } from '../../../../irohalab/deneb-ui/src';
 
 // require('semantic-ui-less/definitions/collections/menu.less');
 // require('semantic-ui-less/definitions/elements/icon.less');
@@ -6,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 @Component({
     selector: 'pagination-demo',
     templateUrl: './pagination.html',
-    standalone: false
+    imports: [UIPagination]
 })
 export class PaginationDemo implements OnInit {
     currentPage: number;

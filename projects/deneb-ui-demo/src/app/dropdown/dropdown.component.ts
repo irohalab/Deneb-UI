@@ -1,6 +1,7 @@
 
 import {fromEvent as observableFromEvent,  Subscription ,  Observable } from 'rxjs';
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { UIDropdown } from '../../../../irohalab/deneb-ui/src';
 
 // require('semantic-ui-less/definitions/modules/transition.less');
 // require('semantic-ui-less/definitions/collections/menu.less');
@@ -9,7 +10,7 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 @Component({
     selector: 'dropdown-demo',
     templateUrl: './dropdown.html',
-    standalone: false
+    imports: [UIDropdown]
 })
 export class DropdownDemo implements AfterViewInit, OnDestroy {
     private _subscription = new Subscription();

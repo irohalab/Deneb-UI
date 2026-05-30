@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UIPopoverContent, UIPopoverRef } from '../../../../../irohalab/deneb-ui/src';
 
 @Component({
@@ -11,12 +11,11 @@ import { UIPopoverContent, UIPopoverRef } from '../../../../../irohalab/deneb-ui
             width: 100px;
             height: 100px;
         }
-    `],
-    standalone: false
+    `]
 })
 export class PopoverContentComponent extends UIPopoverContent {
-    constructor(popoverRef: UIPopoverRef<PopoverContentComponent>) {
-        super(popoverRef);
+    constructor() {
+        super(inject(UIPopoverRef<PopoverContentComponent>));
     }
 
     close() {

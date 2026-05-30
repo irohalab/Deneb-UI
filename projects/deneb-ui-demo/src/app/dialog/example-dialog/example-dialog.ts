@@ -1,6 +1,7 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { DARK_THEME, DarkThemeService, UIDialog, UIDialogRef } from '../../../../../irohalab/deneb-ui/src';
 import { Subscription } from 'rxjs';
+import { NgClass } from '@angular/common';
 @Component({
     selector: 'example-dialog',
     templateUrl: 'example-dialog.html',
@@ -37,20 +38,19 @@ import { Subscription } from 'rxjs';
             align-items: center;
         }
     `],
-    standalone: false
+    imports: [NgClass]
 })
 export class ExampleDialog implements OnInit, OnDestroy {
     private _subscription = new Subscription();
+    private _darkThemeService = inject(DarkThemeService);
+    public dialogRef = inject(UIDialogRef<ExampleDialog>);
+    public dialog = inject(UIDialog);
 
     @Input()
     boundContent: string;
     result: string;
 
     isDarkTheme: boolean;
-
-    constructor(public dialogRef: UIDialogRef<ExampleDialog>,
-                public dialog: UIDialog,
-                private _darkThemeService: DarkThemeService) {}
 
     ngOnInit(): void {
         this._subscription.add(

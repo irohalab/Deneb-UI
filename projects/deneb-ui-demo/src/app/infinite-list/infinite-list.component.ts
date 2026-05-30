@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InfiniteService } from './infinite.service';
-import { InfiniteDataBucketsStub } from '../../../../irohalab/deneb-ui/src';
+import { InfiniteDataBucketsStub, InfiniteList, InfiniteForOf } from '../../../../irohalab/deneb-ui/src';
+import { ListItemExample } from './list-item/list-item.component';
 
 // const MOCK_DATA = require('../../MOCK_DATA.json');
 
@@ -23,7 +24,7 @@ import { InfiniteDataBucketsStub } from '../../../../irohalab/deneb-ui/src';
         }
     `],
     providers: [InfiniteService],
-    standalone: false
+    imports: [InfiniteList, InfiniteForOf, ListItemExample]
 })
 export class InfiniteListDemo implements OnInit {
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ExampleDialog } from './example-dialog/example-dialog';
 import { UIDialog } from '../../../../irohalab/deneb-ui/src';
@@ -18,15 +18,13 @@ import { UIDialog } from '../../../../irohalab/deneb-ui/src';
             background: #aaa;
             position: relative;
         }
-    `],
-    standalone: false
+    `]
 })
 export class Dialog implements OnDestroy {
     private _subscription = new Subscription();
+    private _uiDialog = inject(UIDialog);
 
     @ViewChild('refChild', {read: ViewContainerRef}) refChild: ViewContainerRef;
-
-    constructor(private _uiDialog: UIDialog) {}
 
     openDialog() {
         let dialogRef = this._uiDialog.open(ExampleDialog, {stickyDialog: false, backdrop: true});

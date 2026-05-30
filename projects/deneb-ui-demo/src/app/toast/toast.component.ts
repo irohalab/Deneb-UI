@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject} from '@angular/core';
 import { LONG_TOAST, UIToast, UIToastComponent, UIToastRef } from '../../../../irohalab/deneb-ui/src';
 
 // require('semantic-ui-less/definitions/collections/message.less');
@@ -31,14 +31,12 @@ const dummy_text = [
 
 @Component({
     selector: 'toast-demo',
-    templateUrl: 'toast.html',
-    standalone: false
+    templateUrl: 'toast.html'
 })
 export class ToastDemo implements OnInit {
 
     private _toastRef: UIToastRef<UIToastComponent>;
-
-    constructor(private _uiToastService: UIToast) {}
+    private _uiToastService = inject(UIToast);
 
     showToast() {
         let message = dummy_text[Math.floor(Math.random() * dummy_text.length)];

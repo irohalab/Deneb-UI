@@ -1,7 +1,10 @@
 import {
-    Component
+    Component, inject
 } from '@angular/core';
-import { DARK_THEME, DarkThemeService, LIGHT_THEME } from '../../../irohalab/deneb-ui/src/dark-theme.service';
+import { DARK_THEME, DarkThemeService, LIGHT_THEME, UIToggle } from '../../../irohalab/deneb-ui/src';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 // require('semantic-ui-less/definitions/modules/sidebar.less');
 
@@ -22,9 +25,10 @@ import { DARK_THEME, DarkThemeService, LIGHT_THEME } from '../../../irohalab/den
             }
         }
     `],
-    standalone: false
+    imports: [RouterOutlet, RouterLink, FormsModule, UIToggle, NgClass]
 })
 export class App {
+    private _darkThemeService = inject(DarkThemeService);
     private _darkTheme: boolean;
     get darkTheme(): boolean {
         return this._darkTheme;
@@ -33,7 +37,7 @@ export class App {
         this._darkTheme = v;
         this._darkThemeService.changeTheme(v ? DARK_THEME : LIGHT_THEME);
     }
-    constructor(private _darkThemeService: DarkThemeService) {
+    constructor() {
         this._darkTheme = this._darkThemeService.getCurrentTheme() === DARK_THEME;
     }
 }

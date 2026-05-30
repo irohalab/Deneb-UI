@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {
-    ResponsiveGenerateSrcService,
     RoundGenerateSrcService,
-    SRC_GENERATOR_SERVICE
+    SRC_GENERATOR_SERVICE,
+    UIResponsiveImageWrapper
 } from '../../../../irohalab/deneb-ui/src';
 
 @Component({
@@ -13,7 +13,7 @@ import {
         // {provide: SRC_GENERATOR_SERVICE, useClass: ResponsiveGenerateSrcService},
         { provide: SRC_GENERATOR_SERVICE, useClass: RoundGenerateSrcService }
     ],
-    standalone: false
+    imports: [UIResponsiveImageWrapper]
 })
 export class ResponsiveImageComponent {
 

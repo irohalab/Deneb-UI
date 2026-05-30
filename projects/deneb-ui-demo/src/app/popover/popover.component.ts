@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { PopoverContentComponent } from './popover-content/popover-content.component';
-import { UIPopover } from '../../../../irohalab/deneb-ui/src';
+import { UIPopover, UIPopoverDirective } from '../../../../irohalab/deneb-ui/src';
 
 @Component({
     selector: 'popover-demo',
@@ -24,13 +24,12 @@ import { UIPopover } from '../../../../irohalab/deneb-ui/src';
         }
 
     `],
-    standalone: false
+    imports: [UIPopoverDirective]
 })
 export class PopoverComponent {
 
     @ViewChild('refButton') refButtonRef: ElementRef;
-
-    constructor(private _popover: UIPopover) {}
+    private _popover = inject(UIPopover);
 
     openPopover() {
         let refButton = this.refButtonRef.nativeElement;

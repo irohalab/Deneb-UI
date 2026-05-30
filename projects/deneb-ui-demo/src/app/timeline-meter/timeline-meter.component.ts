@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DARK_THEME, DarkThemeService } from '../../../../irohalab/deneb-ui/src';
+import { DARK_THEME, DarkThemeService, UITimeLineMeter, InfiniteList, InfiniteForOf } from '../../../../irohalab/deneb-ui/src';
+import { NgClass } from '@angular/common';
 @Component({
     selector: 'timeline-meter-demo',
     templateUrl: './timeline-meter.html',
@@ -20,19 +21,17 @@ import { DARK_THEME, DarkThemeService } from '../../../../irohalab/deneb-ui/src'
             }
         `
     ],
-    standalone: false
+    imports: [UITimeLineMeter, InfiniteList, InfiniteForOf, NgClass]
 })
 export class TimelineMeterExample implements OnInit, OnDestroy {
     private _subscription = new Subscription();
+    private _darkThemeService = inject(DarkThemeService);
     cards: string[];
     timestampList: number[];
 
     newPosition: number;
 
     isDarkTheme: boolean;
-
-    constructor(private _darkThemeService: DarkThemeService) {
-    }
 
 
     onScrollPositionChange(p: number) {

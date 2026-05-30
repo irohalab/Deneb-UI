@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { UIToggle } from '../../../../irohalab/deneb-ui/src';
 
 @Component({
     selector: 'toggle-example',
@@ -9,7 +11,7 @@ import { Component } from '@angular/core';
             color: #fff;
         }
     `],
-    standalone: false
+    imports: [FormsModule, UIToggle]
 })
 export class ToggleDemo {
     value1 = true;
