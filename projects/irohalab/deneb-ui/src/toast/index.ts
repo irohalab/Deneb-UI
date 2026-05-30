@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
 import {UIToastComponent} from './toast.component';
-import {UIToast} from './toast';
 
 @NgModule({
     imports: [UIToastComponent],
-    providers: [UIToast],
     exports: [UIToastComponent]
 })
 export class UIToastModule {

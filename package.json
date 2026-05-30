@@ -1,6 +1,6 @@
 {
   "name": "deneb-ui",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --project Deneb-UI-Demo",

@@ -7,7 +7,7 @@ export interface ObservableStub {
     unobserveOnVisible: boolean;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UIResponsiveService {
     private _observer: IntersectionObserver | ServerIntersectionObserverFallback;
 

@@ -8,7 +8,6 @@ import { UIScrollbarModule } from './scrollbar';
 import { UIDropdownModule } from './dropdown';
 import { UIToggleModule } from './toggle';
 import { UIPopoverModule } from './popover';
-import { DarkThemeService } from './dark-theme.service';
 import { UIResponsiveImageModule } from './responsive-image';
 
 const UI_MODULES = [
@@ -26,8 +25,7 @@ const UI_MODULES = [
 
 @NgModule({
     imports: UI_MODULES,
-    exports: UI_MODULES,
-    providers: [DarkThemeService]
+    exports: UI_MODULES
 })
 export class UIModule {
 

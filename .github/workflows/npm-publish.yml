@@ -42,5 +42,7 @@ jobs:
       - name: Build library
         run: ng build --project @irohalab/Deneb-UI
       - name: Publish npm package
-        run: npm publish --provenance
+        run: npm publish --provenance --access public
         working-directory: dist/irohalab/deneb-ui
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
