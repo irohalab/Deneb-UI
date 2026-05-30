@@ -1,8 +1,16 @@
 A UI Building Blocks for Project mira-ui.
 
-Forked from lordfriend/Deneb-UI. This project only support Angular 13 and above, for before Angular Ivy version, got to the lordfriend/Deneb-UI
+Forked from lordfriend/Deneb-UI. This project supports Angular 20 with standalone components.
 
-Current implemented component:
+All components are standalone. Services use `providedIn: 'root'` and are available automatically without additional configuration.
+
+## Install
+
+```bash
+npm i --save @irohalab/deneb-ui
+```
+
+## Components
 
 - Dialog (modal)
 - Toast
@@ -11,84 +19,107 @@ Current implemented component:
 - TimelineMeter
 - Dropdown (directive)
 - Toggle
-- Popover (service and directive), need Popper.js as dependency.
+- Popover (service and directive), needs Popper.js as dependency.
 
-Notice: When you want to use toast, you must import `BrowserAnimationsModule` in your application module.
+Notice: When you want to use toast, you must provide `provideAnimations()` in your application config or import `BrowserAnimationsModule` in your application module.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+## Usage
 
-## Dark Theme Support
-You should set your background color as `#1b1c1d` just the same color as semantic ui
+### Standalone Components (Recommended)
 
-All components support dark theme, for directive you need to implement your dark theme yourself. This UIModule provides
-a DarkThemeService to change theme or subscribe to theme change. If you import the modules individually, you need to import the 
-service to module providers manually:
+Import individual components directly in your standalone component or NgModule:
 
 ```typescript
-import { DarkThemeService } from '@irohalab/deneb-ui';
-import { NgModule } from '@angular/core';
+import { Component } from '@angular/core';
+import { UIPagination, UIToggle, UIDropdown } from '@irohalab/deneb-ui';
 
-@NgModule({
-    providers: [DarkThemeService]
+@Component({
+  selector: 'app-example',
+  imports: [UIPagination, UIToggle, UIDropdown],
+  template: `...`
 })
-class YourModule {
+export class ExampleComponent {}
+```
+
+Services like `UIDialog`, `UIToast`, `UIPopover`, `DarkThemeService`, and `UIResponsiveService` are provided at the root level and can be injected directly:
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { UIDialog } from '@irohalab/deneb-ui';
+
+@Component({ ... })
+export class ExampleComponent {
+  private dialog = inject(UIDialog);
 }
 ```
-### Listen to theme change
 
-To subscribe the `DarkThemeService` theme change observable:
+### NgModule (Legacy)
+
+NgModule wrappers are still available for backward compatibility:
 
 ```typescript
-import { OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { DarkThemeService } from '@irohalab/deneb-ui';
-import { DARK_THEME } from '@irohalab/deneb-ui';
+import { NgModule } from '@angular/core';
+import { UIDialogModule, UIToastModule } from '@irohalab/deneb-ui';
 
-class YourComponent implements OnInit, OnDestroy {
-    private _subscription = new Subscription();
+@NgModule({
+  imports: [UIDialogModule, UIToastModule]
+})
+export class AppModule {}
+```
 
-    isDarkTheme: boolean;
+## Dark Theme Support
+You should set your background color as `#1b1c1d` just the same color as semantic ui.
 
-    constructor(private _darkThemeService: DarkThemeService) {
-    }
+All components support dark theme. `DarkThemeService` is provided at root level and can be injected directly.
+
+### Listen to theme change
+
+```typescript
+import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
+import { DarkThemeService, DARK_THEME } from '@irohalab/deneb-ui';
+
+@Component({ ... })
+export class YourComponent implements OnInit, OnDestroy {
+    private darkThemeService = inject(DarkThemeService);
+    protected isDarkTheme = signal(false);
+    private subscription: Subscription;
 
     ngOnInit(): void {
-        this._subscription.add(
-            this._darkThemeService.themeChange
-                .subscribe(theme => {
-                    this.isDarkTheme = theme === DARK_THEME
-                })
-        );
+        this.subscription = this.darkThemeService.themeChange
+            .subscribe(theme => {
+                this.isDarkTheme.set(theme === DARK_THEME);
+            });
     }
 
     ngOnDestroy(): void {
-        this._subscription.unsubscribe();
+        this.subscription.unsubscribe();
     }
 }
 ```
+
 ### Change the theme
 
 ```typescript
-import { DarkThemeService } from '@irohalab/deneb-ui';
-import { DARK_THEME } from '@irohalab/deneb-ui';
+import { Component, inject } from '@angular/core';
+import { DarkThemeService, DARK_THEME } from '@irohalab/deneb-ui';
 
-class YourComponent {
-    constructor(private _darkThemeService: DarkThemeService) {
-    }
+@Component({ ... })
+export class YourComponent {
+    private darkThemeService = inject(DarkThemeService);
 
     changeTheme(): void {
-        this._darkThemeService.changeTheme(DARK_THEME);
+        this.darkThemeService.changeTheme(DARK_THEME);
     }
 }
 ```
+
+### Demo
+
+Please take a look at the [deneb-ui-demo](https://github.com/irohalab/Deneb-UI/tree/master/projects/deneb-ui-demo) application for more examples.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
@@ -98,10 +129,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
