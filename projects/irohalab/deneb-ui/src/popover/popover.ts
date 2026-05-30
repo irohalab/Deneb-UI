@@ -4,7 +4,7 @@ import { UIPopoverRef } from './popover-ref';
 import { registry } from './register';
 import Popper from 'popper.js';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UIPopover {
     constructor(
         private _appRef: ApplicationRef,

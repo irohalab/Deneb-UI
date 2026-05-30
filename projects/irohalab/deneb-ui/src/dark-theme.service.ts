@@ -9,7 +9,7 @@ const THEME_FOR_DENEB = 'theme_for_deneb';
 export type ThemeName = 'dark_theme' | 'light_theme';
 const EVENT_NAME = 'DenebThemeChange';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class DarkThemeService implements OnDestroy {
     private _globalListenerInstance: () => void;
     private _themeChangeSubject = new BehaviorSubject<string>(null);

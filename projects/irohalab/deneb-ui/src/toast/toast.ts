@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
 import {UIToastAnimation} from './toast-interface';
 import { isPlatformServer } from '@angular/common';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UIToast {
     private _currentActiveToast: ComponentRef<any>;
     // private _lastActiveToast: ComponentRef<any>;

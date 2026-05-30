@@ -4,10 +4,7 @@
   "description": "Building blocks for mira-ui",
   "author": "Everett Summer",
   "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/irohalab/Deneb-UI.git"
-  },
+  "repository": "github:irohalab/Deneb-UI.git",
   "peerDependencies": {
     "@angular/common": "^20.3.23",
     "@angular/core": "^20.3.23",

@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { UIPopover } from './popover';
 import { UIPopoverDirective } from './popover.directive';
 import { CommonModule } from '@angular/common';
 import { BasicPopoverComponent } from './basic-popover/basic-popover.component';
 
 @NgModule({
-    providers: [UIPopover],
     imports: [CommonModule, UIPopoverDirective, BasicPopoverComponent],
     exports: [UIPopoverDirective]
 })

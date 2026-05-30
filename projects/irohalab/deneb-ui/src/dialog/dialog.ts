@@ -13,7 +13,7 @@ import {UIDialogRef} from './dialog-ref';
 import {UIDialogContainer} from './dialog-container';
 import {DialogInjector} from './dialog-injector';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UIDialog {
     constructor(
         private _appRef: ApplicationRef,
