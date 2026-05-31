@@ -20,7 +20,11 @@
     left: 0;
     background-color: rgba(0, 0, 0 , 0.85);
     opacity: 0;
+    transition: opacity 200ms;
     line-height: 1;
+    &.active {
+      opacity: 1;
+    }
     &.inverted {
       background-color: rgba(82, 82, 82, 0.85);
     }
