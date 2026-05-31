@@ -1,14 +1,14 @@
 {
   "name": "@irohalab/deneb-ui",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Building blocks for mira-ui",
   "author": "Everett Summer",
   "license": "Apache-2.0",
   "repository": "github:irohalab/Deneb-UI.git",
   "peerDependencies": {
-    "@angular/common": "^20.3.23",
-    "@angular/core": "^20.3.23",
-    "@angular/animations": "^20.3.23",
+    "@angular/common": "^21.2.15",
+    "@angular/core": "^21.2.15",
+    "@angular/animations": "^21.2.15",
     "popper.js": "^1.12.9"
   },
   "dependencies": {
