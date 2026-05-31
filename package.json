@@ -7,7 +7,7 @@
     "build": "npm run build:deneb-ui",
     "build:deneb-ui": "ng build --project @irohalab/Deneb-UI",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test --watch=false"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +37,6 @@
     "karma-firefox-launcher": "^2.1.2",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "karma-phantomjs-launcher": "^1.0.4",
     "less": "^4.2.0",
     "ng-packagr": "^21.2.3",
     "popper.js": "^1.12.9",
