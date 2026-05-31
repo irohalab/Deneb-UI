@@ -9,7 +9,6 @@ import {
     ViewContainerRef,
     ViewEncapsulation, ViewRef
 } from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {UIDialogConfig} from './dialog';
 import { DARK_THEME, DarkThemeService } from '../dark-theme.service';
 import { Subscription } from 'rxjs';
@@ -20,19 +19,6 @@ import { NgClass } from '@angular/common';
     templateUrl: './dialog-container.html',
     styleUrls: ['dialog-container.less'],
     encapsulation: ViewEncapsulation.None,
-    animations: [
-        trigger('backdropState', [
-            state('active', style({ opacity: '1' })),
-            transition('void => active', [
-                style({ opacity: '0' }),
-                animate(200)
-            ]),
-            transition('active => void', [
-                style({ opacity: '0' }),
-                animate(200)
-            ])
-        ])
-    ],
     imports: [NgClass]
 })
 export class UIDialogContainer implements AfterViewInit, OnInit, OnDestroy {
