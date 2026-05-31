@@ -2,7 +2,11 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 if (!process.env.CHROME_BIN) {
-    process.env.CHROME_BIN = require('puppeteer').executablePath();
+    try {
+        process.env.CHROME_BIN = require('puppeteer').executablePath();
+    } catch (e) {
+        console.warn('Puppeteer chromium not found, using system chromium');
+    }
 }
 
 module.exports = function (config) {
@@ -13,7 +17,6 @@ module.exports = function (config) {
             require('karma-jasmine'),
             require('karma-chrome-launcher'),
             require('karma-firefox-launcher'),
-            require('karma-phantomjs-launcher'),
             require('karma-jasmine-html-reporter'),
             require('karma-coverage'),
             
