@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 // require('semantic-ui-less/definitions/globals/reset.less');
 // require('semantic-ui-less/definitions/globals/site.less');
 
@@ -17,7 +18,7 @@ import { ResponsiveImageComponent } from './app/responsive-image/responsive-imag
 
 bootstrapApplication(App, {
     providers: [
-        provideAnimations(),
+        provideZoneChangeDetection(),provideAnimations(),
         provideRouter([
             { path: 'dialog', component: Dialog },
             { path: 'toast', component: ToastDemo },
